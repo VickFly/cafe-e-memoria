@@ -44,7 +44,7 @@ export function Introducao() {
         </div>
 
         <blockquote className="relative mx-auto mt-16 max-w-3xl px-2 text-center">
-          <Grao className="mx-auto mb-5 h-6 w-6 text-caramelo" />
+          <Grao className="mx-auto mb-5 h-6 w-6 text-caramelo-texto" />
           <p className="font-display text-[clamp(1.5rem,5.4vw,2.4rem)] italic leading-tight text-espresso">
             “O café não transformou apenas a economia brasileira. Ele ajudou a construir a cidade que conhecemos hoje.”
           </p>
@@ -52,7 +52,7 @@ export function Introducao() {
 
         <div className="mt-16">
           <div className="flex items-center gap-3">
-            <Ship className="h-5 w-5 text-caramelo" aria-hidden="true" />
+            <Ship className="h-5 w-5 text-caramelo-texto" aria-hidden="true" />
             <h3 className="text-2xl font-bold">Linha do tempo</h3>
           </div>
           <ol className="relative mt-8 grid gap-0 border-l-2 border-dashed border-ouro/70 pl-6 sm:grid-cols-4 sm:gap-y-10 sm:border-l-0 sm:border-t-2 sm:pl-0 sm:pt-8">
@@ -62,7 +62,7 @@ export function Introducao() {
                   className="absolute -left-[33px] top-1 h-4 w-4 rounded-full border-2 border-caramelo bg-papel sm:-top-[41px] sm:left-0"
                   aria-hidden="true"
                 />
-                <p className="font-display text-3xl font-bold text-caramelo tabular">{m.ano}</p>
+                <p className="font-display text-3xl font-bold text-caramelo-texto tabular">{m.ano}</p>
                 <p className="mt-1 font-semibold text-espresso">{m.titulo}</p>
                 <p className="text-[0.9rem] leading-snug text-tinta/80">{m.texto}</p>
               </li>

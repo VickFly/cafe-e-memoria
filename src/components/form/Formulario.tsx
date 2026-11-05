@@ -55,7 +55,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
 
   useEffect(() => {
     topo.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    topo.current?.querySelector<HTMLElement>('h2')?.focus({ preventScroll: true })
+    topo.current?.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true })
   }, [etapa])
 
   const focarPrimeiroErro = (e: Erros) => {
@@ -129,7 +129,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
           </div>
           <ol className="mt-3 hidden grid-cols-5 gap-1 text-center text-[0.72rem] font-semibold uppercase tracking-wider min-[440px]:grid">
             {etapas.map((nome, i) => (
-              <li key={nome} className={`flex items-center justify-center gap-1 ${i < etapa ? 'text-oliva' : i === etapa ? 'text-espresso' : 'text-cafe/40'}`}>
+              <li key={nome} className={`flex items-center justify-center gap-1 ${i < etapa ? 'text-oliva' : i === etapa ? 'text-espresso' : 'text-cafe/80'}`}>
                 {i < etapa && <Check className="h-3 w-3" />} {nome}
               </li>
             ))}
@@ -142,7 +142,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
               <Cabecalho titulo="Antes de avaliar, queremos conhecer você!" texto="Só precisamos do seu nome para identificar a avaliação." />
               <div id="campo-nome-wrap">
                 <label htmlFor="campo-nome" className="font-medium text-espresso">
-                  Nome completo <span className="text-caramelo" aria-hidden="true">*</span>
+                  Nome completo <span className="text-caramelo-texto" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="campo-nome"
@@ -161,9 +161,9 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
               <div>
                 <label htmlFor="campo-email" className="flex items-baseline justify-between gap-3 font-medium text-espresso">
                   <span>E-mail</span>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-cafe/50">Opcional</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-cafe/80">Opcional</span>
                 </label>
-                <p id="ajuda-email" className="mt-1 text-sm text-cafe/75">Deixe só se quiser receber da equipe o resultado do trabalho.</p>
+                <p id="ajuda-email" className="mt-1 text-sm text-cafe/80">Deixe só se quiser receber da equipe o resultado do trabalho.</p>
                 <input
                   id="campo-email"
                   type="email"
@@ -293,7 +293,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
             )}
           </div>
         </div>
-        <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-cafe/60">
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-cafe/80">
           <Grao className="h-3 w-3" /> Suas respostas ficam guardadas neste aparelho até o envio.
         </p>
       </div>
@@ -304,7 +304,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
 function Cabecalho({ titulo, texto, centro }: { titulo: string; texto: string; centro?: boolean }) {
   return (
     <div className={centro ? 'text-center' : ''}>
-      <h2 id="titulo-etapa" tabIndex={-1} className="text-[clamp(1.6rem,6vw,2.2rem)] font-bold leading-tight outline-none">{titulo}</h2>
+      <h1 id="titulo-etapa" tabIndex={-1} className="text-[clamp(1.6rem,6vw,2.2rem)] font-bold leading-tight outline-none">{titulo}</h1>
       <p className="mt-2 text-cafe/80">{texto}</p>
     </div>
   )

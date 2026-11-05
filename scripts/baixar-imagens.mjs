@@ -10,6 +10,22 @@ const destino = new URL('../public/img/', import.meta.url)
 await mkdir(destino, { recursive: true })
 
 const UA = 'CafeEMemoria/1.0 (projeto academico USP; build estatico)'
+
+// sharp reduz o peso das fotos (≈ 3 a 5x menores no celular). Se não estiver disponível, salva o original.
+let sharp = null
+try {
+  sharp = (await import('sharp')).default
+} catch {
+  console.warn('[imagens] sharp indisponível: salvando as fotos sem otimizar')
+}
+const otimizar = async (buf, largura) => {
+  if (!sharp) return buf
+  try {
+    return await sharp(buf).rotate().resize({ width: largura, withoutEnlargement: true }).jpeg({ quality: 74, mozjpeg: true, progressive: true }).toBuffer()
+  } catch {
+    return buf
+  }
+}
 let ok = 0
 let falhas = 0
 
@@ -24,8 +40,9 @@ for (const [chave, { arquivo, largura }] of Object.entries(lista)) {
     const ctrl = AbortSignal.timeout(25000)
     const r = await fetch(url, { headers: { 'User-Agent': UA }, redirect: 'follow', signal: ctrl })
     if (!r.ok) throw new Error(`HTTP ${r.status}`)
-    const buf = Buffer.from(await r.arrayBuffer())
-    if (buf.length < 1000) throw new Error('arquivo vazio')
+    const original = Buffer.from(await r.arrayBuffer())
+    if (original.length < 1000) throw new Error('arquivo vazio')
+    const buf = await otimizar(original, Math.min(largura, chave === 'panorama' ? 1280 : 900))
     await writeFile(alvo, buf)
     ok++
     console.log(`[imagens] ok   ${chave} (${Math.round(buf.length / 1024)} KB)`)

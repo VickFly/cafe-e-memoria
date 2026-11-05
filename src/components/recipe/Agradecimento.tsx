@@ -59,7 +59,7 @@ export function Agradecimento({ nome, onVoltarTrilha, onNovaAvaliacao }: { nome:
       <div className="mx-auto mt-12 max-w-4xl">
         {!revelada ? (
           <div className="moldura mx-auto flex max-w-md flex-col items-center gap-3 rounded-3xl p-8 text-center" aria-live="polite">
-            <Lock className="h-7 w-7 text-caramelo" aria-hidden="true" />
+            <Lock className="h-7 w-7 text-caramelo-texto" aria-hidden="true" />
             <p className="font-display text-xl font-bold">Preparando uma surpresa…</p>
             <button type="button" className="btn-texto text-sm" onClick={() => setRevelada(true)}>Mostrar agora</button>
           </div>
@@ -82,9 +82,9 @@ export function Agradecimento({ nome, onVoltarTrilha, onNovaAvaliacao }: { nome:
                 <ul className="mt-3 grid gap-2">
                   {receita.ingredientes.map((ing) => (
                     <li key={ing.item} className="flex items-baseline gap-3 rounded-lg bg-papel/70 px-3 py-2">
-                      <Grao className="h-3 w-2.5 shrink-0 translate-y-0.5 text-caramelo" />
+                      <Grao className="h-3 w-2.5 shrink-0 translate-y-0.5 text-caramelo-texto" />
                       <span className="tabular min-w-[5.5rem] font-semibold text-espresso">{ing.qtd}</span>
-                      <span className="min-w-0 text-tinta/90">{ing.item}{ing.opcional && <em className="text-cafe/70"> (opcional)</em>}</span>
+                      <span className="min-w-0 text-tinta/90">{ing.item}{ing.opcional && <em className="text-cafe/80"> (opcional)</em>}</span>
                     </li>
                   ))}
                 </ul>

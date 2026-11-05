@@ -7,6 +7,7 @@ export default {
         espresso: '#321D16',
         cafe: '#5B3928',
         caramelo: '#A66A3F',
+        'caramelo-texto': '#8A5532', // caramelo escurecido para textos pequenos (contraste 4,5:1)
         papel: '#F3EBDD',
         creme: '#FAF7EF',
         oliva: '#68704B',

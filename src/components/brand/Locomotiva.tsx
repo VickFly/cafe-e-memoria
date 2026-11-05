@@ -124,7 +124,7 @@ export function TremChegando() {
         <div className="absolute bottom-[15px] right-0 hidden flex-col items-center sm:flex">
           <div className="rounded border-2 border-espresso bg-creme px-3 py-1 text-center">
             <p className="font-display text-sm font-bold leading-tight text-espresso">ESTAÇÃO DA LUZ</p>
-            <p className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-caramelo">Ponto de encontro · 13h</p>
+            <p className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-caramelo-texto">Ponto de encontro · 13h</p>
           </div>
           <div className="h-10 w-1 bg-espresso" />
         </div>

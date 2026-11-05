@@ -43,7 +43,7 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
       <div className="sticky z-30 mt-8" style={{ top: 'env(safe-area-inset-top, 0px)' }}>
         <div className="gutter border-y border-cafe/10 bg-papel py-3 sm:bg-papel/95 sm:backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center gap-4">
-            <TrainFront className="h-5 w-5 shrink-0 text-caramelo" aria-hidden="true" />
+            <TrainFront className="h-5 w-5 shrink-0 text-caramelo-texto" aria-hidden="true" />
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2 text-sm">
                 <span className="font-semibold text-espresso">{completa ? 'Trilha completa!' : 'Sua trilha'}</span>
@@ -111,7 +111,7 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
                         <Foto imagem={capa} proporcao="4 / 3" semLegenda />
                       ) : (
                         <div className="grid aspect-[4/3] max-w-full place-items-center rounded-[10px] bg-[#E7DCC8] ring-1 ring-cafe/20">
-                          <Ilustracao className="w-3/4 text-cafe/75" title={`Ilustração: ${p.nome}`} />
+                          <Ilustracao className="w-3/4 text-cafe/80" title={`Ilustração: ${p.nome}`} />
                         </div>
                       )}
                     </div>
@@ -126,7 +126,7 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
                       </p>
                       <p className="mt-3 text-[0.95rem] text-tinta/85">{p.resumo}</p>
                       <p className="mt-4 flex gap-2 rounded-lg border-l-[3px] border-ouro bg-papel/70 p-3 text-[0.86rem] leading-snug text-tinta/85">
-                        <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-caramelo" aria-hidden="true" />
+                        <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-caramelo-texto" aria-hidden="true" />
                         <span><span className="font-semibold text-espresso">Curiosidade: </span>{p.curiosidade}</span>
                       </p>
                       <div className="mt-5 flex flex-wrap items-center gap-3">

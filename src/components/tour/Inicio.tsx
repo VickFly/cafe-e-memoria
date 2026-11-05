@@ -19,7 +19,7 @@ export function Inicio({ onComecar }: { onComecar: () => void }) {
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_1fr]">
         <div className="relative min-w-0 animate-rise">
           <p className="eyebrow flex items-center gap-2">
-            <Grao className="h-3.5 w-3.5 text-caramelo" /> Tour guiado · Centro Histórico
+            <Grao className="h-3.5 w-3.5 text-caramelo-texto" /> Tour guiado · Centro Histórico
           </p>
           <h1 className="mt-4 font-display text-[clamp(3rem,13vw,6.2rem)] font-extrabold leading-[0.92] tracking-[-0.02em]">
             Café
@@ -44,7 +44,7 @@ export function Inicio({ onComecar }: { onComecar: () => void }) {
           </div>
         </div>
 
-        <div className="relative min-w-0 animate-rise [animation-delay:120ms]">
+        <div className="relative mx-auto w-full min-w-0 max-w-xl animate-rise [animation-delay:120ms] lg:max-w-none">
           <div className="moldura moldura-dupla rotate-[0.6deg] rounded-2xl p-3 sm:p-4">
             <Foto imagem={imagens.panorama} proporcao="5 / 4" prioridade />
           </div>
@@ -57,17 +57,17 @@ export function Inicio({ onComecar }: { onComecar: () => void }) {
       </div>
 
       <div className="mx-auto mt-8 max-w-6xl">
-        <dl className="moldura grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-cafe/10 lg:grid-cols-4">
+        <ul className="moldura grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-cafe/10 lg:grid-cols-4" aria-label="Informações do evento">
           {info.map(({ icone: Icone, rotulo, valor }) => (
-            <div key={rotulo} className="flex min-w-0 items-start gap-3 bg-creme p-4 sm:p-5">
-              <Icone className="mt-0.5 h-5 w-5 shrink-0 text-caramelo" aria-hidden="true" />
+            <li key={rotulo} className="flex min-w-0 items-start gap-3 bg-creme p-4 sm:p-5">
+              <Icone className="mt-0.5 h-5 w-5 shrink-0 text-caramelo-texto" aria-hidden="true" />
               <div className="min-w-0">
-                <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cafe/70">{rotulo}</dt>
-                <dd className="font-medium leading-snug text-espresso">{valor}</dd>
+                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cafe">{rotulo}</p>
+                <p className="font-medium leading-snug text-espresso">{valor}</p>
               </div>
-            </div>
+            </li>
           ))}
-        </dl>
+        </ul>
         <div className="mt-8 rounded-2xl border border-dashed border-ouro/70 p-5 sm:p-6">
           <p className="eyebrow">Seus guias nesta viagem</p>
           <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1" aria-label={`Guias: ${guiasTexto()}`}>

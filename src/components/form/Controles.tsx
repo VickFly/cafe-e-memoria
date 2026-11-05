@@ -65,7 +65,7 @@ export function AvaliacaoGraos({ rotulo, valor, onChange, erro, grande, id }: Gr
                 key={selecionado ? `on-${n}` : `off-${n}`}
                 cheio={ativo}
                 className={`${grande ? 'h-10 w-8 sm:h-12 sm:w-10' : 'h-7 w-6'} transition-colors duration-300 ${
-                  ativo ? 'text-cafe' : 'text-cafe/35 group-hover:text-caramelo'
+                  ativo ? 'text-cafe' : 'text-cafe/35 group-hover:text-caramelo-texto'
                 } ${selecionado ? 'animate-pop' : ''}`}
               />
             </button>
@@ -75,7 +75,7 @@ export function AvaliacaoGraos({ rotulo, valor, onChange, erro, grande, id }: Gr
       <p
         id={`${base}-estado`}
         aria-live="polite"
-        className={`${grande ? 'mt-3 text-center font-display text-2xl italic' : 'mt-0.5 text-sm'} min-h-[1.5em] ${valor ? 'text-caramelo' : 'text-cafe/50'}`}
+        className={`${grande ? 'mt-3 text-center font-display text-2xl italic' : 'mt-0.5 text-sm'} min-h-[1.5em] ${valor ? 'text-caramelo-texto' : 'text-cafe/80'}`}
       >
         {valor ? (
           <>
@@ -154,7 +154,7 @@ export function EscalaNPS({ rotulo, valor, onChange, erro, id }: { rotulo: strin
           )
         })}
       </div>
-      <div className="mt-2 flex justify-between text-xs text-cafe/70">
+      <div className="mt-2 flex justify-between text-xs text-cafe/80">
         <span>0 · Não recomendaria</span>
         <span>10 · Recomendaria muito</span>
       </div>
@@ -183,11 +183,11 @@ export function CampoTexto({
     <div className="min-w-0">
       <label htmlFor={id} className="flex items-baseline justify-between gap-3 font-medium leading-snug text-espresso">
         <span>{rotulo}</span>
-        <span className={`shrink-0 text-xs font-semibold uppercase tracking-wider ${obrigatorio ? 'text-caramelo' : 'text-cafe/50'}`}>
+        <span className={`shrink-0 text-xs font-semibold uppercase tracking-wider ${obrigatorio ? 'text-caramelo-texto' : 'text-cafe/80'}`}>
           {obrigatorio ? 'Obrigatório' : 'Opcional'}
         </span>
       </label>
-      {ajuda && <p className="mt-1 text-sm text-cafe/75">{ajuda}</p>}
+      {ajuda && <p className="mt-1 text-sm text-cafe/80">{ajuda}</p>}
       <textarea
         id={id}
         rows={linhas}
@@ -201,7 +201,7 @@ export function CampoTexto({
       />
       <div className="mt-1 flex justify-between gap-2">
         <span>{erro && <MensagemErro id={`${id}-erro`} texto={erro} />}</span>
-        <span id={`${id}-contador`} className={`tabular shrink-0 text-xs ${restante < 50 ? 'text-caramelo' : 'text-cafe/60'}`} aria-live={restante < 50 ? 'polite' : 'off'}>
+        <span id={`${id}-contador`} className={`tabular shrink-0 text-xs ${restante < 50 ? 'text-caramelo-texto' : 'text-cafe/80'}`} aria-live={restante < 50 ? 'polite' : 'off'}>
           {valor.length}/{limite}
         </span>
       </div>

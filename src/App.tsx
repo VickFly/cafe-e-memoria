@@ -110,8 +110,8 @@ function BarraTopo({ tela, onInicio, onAvaliar, jaEnviou }: { tela: Tela; onInic
     <div className="gutter border-b border-cafe/10 bg-papel/80 py-2.5">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
         <button type="button" onClick={onInicio} className="flex min-h-[44px] items-center gap-2 font-display text-lg font-bold text-espresso" aria-label="Café & Memória, voltar ao início">
-          <Grao className="h-5 w-4 text-caramelo" />
-          Café <span className="italic text-caramelo">&amp;</span> Memória
+          <Grao className="h-5 w-4 text-caramelo-texto" />
+          Café <span className="italic text-caramelo-texto">&amp;</span> Memória
         </button>
         {tela === 'tour' && (
           <button type="button" onClick={onAvaliar} className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-cafe/30 px-4 text-sm font-semibold text-cafe hover:border-cafe hover:bg-creme">

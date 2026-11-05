@@ -141,7 +141,7 @@ function Dados() {
 
       {!lista.length ? (
         <div className="moldura rounded-3xl p-8 text-center">
-          <Grao className="mx-auto h-8 w-6 text-caramelo" />
+          <Grao className="mx-auto h-8 w-6 text-caramelo-texto" />
           <p className="mt-3 font-display text-xl font-bold">Nenhuma avaliação ainda</p>
           <p className="mt-1 text-cafe/80">Elas aparecem aqui assim que os participantes enviarem o formulário.</p>
         </div>
@@ -157,7 +157,7 @@ function Dados() {
           <div className="grid gap-4 lg:grid-cols-2">
             <div className="moldura min-w-0 rounded-2xl p-5">
               <h2 className="text-xl font-bold">Condução dos guias</h2>
-              <p className="text-sm text-cafe/70">Do mais bem avaliado ao menos · {tourConfig.guias.join(', ')}</p>
+              <p className="text-sm text-cafe/80">Do mais bem avaliado ao menos · {tourConfig.guias.join(', ')}</p>
               <ul className="mt-4 space-y-3">
                 {r.criterios.map((c, i) => (
                   <li key={c.id}>
@@ -195,10 +195,10 @@ function Dados() {
 
           <div>
             <div className="flex flex-wrap items-end justify-between gap-3">
-              <h2 className="flex items-center gap-2 text-2xl font-bold"><MessageSquareQuote className="h-6 w-6 text-caramelo" aria-hidden="true" /> Comentários</h2>
+              <h2 className="flex items-center gap-2 text-2xl font-bold"><MessageSquareQuote className="h-6 w-6 text-caramelo-texto" aria-hidden="true" /> Comentários</h2>
               <label className="relative w-full max-w-xs">
                 <span className="sr-only">Buscar nos comentários</span>
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cafe/50" aria-hidden="true" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cafe/80" aria-hidden="true" />
                 <input className="campo pl-9" placeholder="Buscar" value={busca} onChange={(e) => setBusca(e.target.value)} />
               </label>
             </div>
@@ -207,9 +207,9 @@ function Dados() {
                 <li key={a.id} className="moldura min-w-0 rounded-2xl p-5">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <span className="font-semibold text-espresso">{a.nome}</span>
-                    <span className="tabular text-xs text-cafe/70">{new Date(a.enviadoEm).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</span>
+                    <span className="tabular text-xs text-cafe/80">{new Date(a.enviadoEm).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}</span>
                   </div>
-                  <p className="mt-1 flex items-center gap-1 text-sm text-caramelo" aria-label={`Nota ${a.notaGeral} de 5`}>
+                  <p className="mt-1 flex items-center gap-1 text-sm text-caramelo-texto" aria-label={`Nota ${a.notaGeral} de 5`}>
                     {Array.from({ length: 5 }, (_, i) => <Grao key={i} cheio={i < a.notaGeral} className="h-4 w-3" />)}
                     <span className="ml-1">· recomendação {a.recomendacao}/10</span>
                   </p>
@@ -229,9 +229,9 @@ function Dados() {
 function Numero({ rotulo, valor, extra, icone }: { rotulo: string; valor: string; extra?: string; icone?: React.ReactNode }) {
   return (
     <div className="moldura min-w-0 rounded-2xl p-4">
-      <p className="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-cafe/70">{icone}{rotulo}</p>
+      <p className="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-cafe/80">{icone}{rotulo}</p>
       <p className="tabular mt-1 font-display text-4xl font-bold text-espresso">{valor}</p>
-      {extra && <p className="text-xs text-cafe/70">{extra}</p>}
+      {extra && <p className="text-xs text-cafe/80">{extra}</p>}
     </div>
   )
 }

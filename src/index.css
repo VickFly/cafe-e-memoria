@@ -8,6 +8,7 @@
   --espresso: #321d16;
   --cafe: #5b3928;
   --caramelo: #a66a3f;
+  --caramelo-texto: #8a5532;
   --papel: #f3ebdd;
   --creme: #faf7ef;
   --oliva: #68704b;
@@ -49,7 +50,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     font-weight: 600;
-    color: var(--caramelo);
+    color: var(--caramelo-texto);
   }
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 font-semibold transition

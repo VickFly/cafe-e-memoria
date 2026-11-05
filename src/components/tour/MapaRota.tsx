@@ -73,9 +73,9 @@ export function MapaRota({ exploradas, ativa, onSelecionar }: { exploradas: Set<
     <figure className="moldura moldura-dupla rounded-2xl p-4">
       <figcaption className="flex items-baseline justify-between gap-2 px-1">
         <span className="font-display text-lg font-bold text-espresso">O percurso</span>
-        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-cafe/60">Esquema · sem escala</span>
+        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-cafe/80">Esquema · sem escala</span>
       </figcaption>
-      <svg viewBox={`0 0 ${W} ${H}`} className="mt-2 w-full max-w-full" role="img" aria-label="Esquema da ordem do percurso: 1 Estação da Luz, 2 Rua XV de Novembro e Rua Anchieta, 3 Largo do Café, 4 Theatro Municipal. Ilustrativo, sem escala.">
+      <svg viewBox={`0 0 ${W} ${H}`} className="mt-2 w-full max-w-full" aria-describedby="mapa-descricao">
         <defs>
           <pattern id="quadricula" width="20" height="20" patternUnits="userSpaceOnUse">
             <path d="M20 0H0V20" fill="none" stroke="#5B3928" strokeOpacity=".07" strokeWidth="1" />
@@ -128,7 +128,8 @@ export function MapaRota({ exploradas, ativa, onSelecionar }: { exploradas: Set<
           <path d="M4 38h14l-3 4H7z" fill="#A66A3F" stroke="#321D16" strokeWidth="1" />
         </g>
       </svg>
-      <p className="mt-2 px-1 text-xs text-cafe/70">Toque em uma estação para abrir os detalhes.</p>
+      <p id="mapa-descricao" className="sr-only">Esquema da ordem do percurso, ilustrativo e sem escala: 1 Estação da Luz, 2 Rua XV de Novembro e Rua Anchieta, 3 Largo do Café, 4 Theatro Municipal.</p>
+      <p className="mt-2 px-1 text-xs text-cafe/80">Toque em uma estação para abrir os detalhes.</p>
     </figure>
   )
 }

@@ -67,7 +67,7 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
 
         <div className="gutter pb-8 pt-5">
           <div className="flex items-start gap-4">
-            <Ilustracao className="hidden h-16 w-28 shrink-0 text-caramelo min-[480px]:block" />
+            <Ilustracao className="hidden h-16 w-28 shrink-0 text-caramelo-texto min-[480px]:block" />
             <div className="min-w-0">
               <h2 id="painel-titulo" className="text-[clamp(1.8rem,6vw,2.6rem)] font-bold leading-tight">
                 {parada.nome}
@@ -102,7 +102,7 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
           ) : (
             parada.semFotoNota && (
               <div className="mt-6 flex flex-col items-center gap-3 rounded-2xl border border-dashed border-ouro bg-papel/70 p-6 text-center">
-                <Ilustracao className="h-24 w-44 text-cafe/70" />
+                <Ilustracao className="h-24 w-44 text-cafe/80" />
                 <p className="max-w-[46ch] text-sm text-cafe">{parada.semFotoNota.texto}</p>
                 <a href={parada.semFotoNota.link} target="_blank" rel="noreferrer" className="btn-texto text-sm">
                   Abrir no Wikimedia Commons <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -141,12 +141,12 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
             ))}
           </ul>
 
-          <aside className="mt-8 rounded-2xl bg-espresso p-5 text-creme">
+          <div className="mt-8 rounded-2xl bg-espresso p-5 text-creme">
             <p className="flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ouro">
               <Lightbulb className="h-4 w-4" aria-hidden="true" /> Curiosidade
             </p>
             <p className="mt-2 font-display text-lg italic leading-snug">{parada.curiosidade}</p>
-          </aside>
+          </div>
 
           {parada.fotos.extra && (
             <div className="mt-8">

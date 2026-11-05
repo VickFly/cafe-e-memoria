@@ -42,7 +42,7 @@ export function Foto({ imagem, className = '', proporcao = '4 / 3', prioridade, 
           <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#EADFCB] to-[#DDCDB2]" aria-hidden="true" />
         )}
         {estado === 'erro' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center text-cafe/70">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center text-cafe">
             <Selo className="h-16 w-16 text-ouro" />
             <span className="flex items-center gap-1.5 text-sm font-medium">
               <ImageOff className="h-4 w-4" aria-hidden="true" /> Imagem indisponível agora
