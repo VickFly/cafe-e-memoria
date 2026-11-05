@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Layout: coluna editorial estreita (livro de registros) que se abre em duas colunas no desktop.
+   Tema único e deliberado: papel antigo. Todas as cores definidas explicitamente. */
+:root {
+  --espresso: #321d16;
+  --cafe: #5b3928;
+  --caramelo: #a66a3f;
+  --papel: #f3ebdd;
+  --creme: #faf7ef;
+  --oliva: #68704b;
+  --ouro: #b99a62;
+  --tinta: #24201d;
+  --linha: rgba(91, 57, 40, 0.18);
+  color-scheme: light;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    background-color: var(--papel);
+    color: var(--tinta);
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(rgba(91, 57, 40, 0.05) 1px, transparent 1px),
+      radial-gradient(rgba(91, 57, 40, 0.035) 1px, transparent 1px),
+      radial-gradient(120% 80% at 50% 0%, rgba(250, 247, 239, 0.9), rgba(243, 235, 221, 0) 60%);
+    background-size: 23px 23px, 37px 37px, 100% 100%;
+    background-position: 0 0, 11px 17px, 0 0;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; text-wrap: balance; color: var(--espresso); }
+  ::selection { background: rgba(166, 106, 63, 0.3); }
+  :focus-visible { outline: 3px solid var(--caramelo); outline-offset: 3px; border-radius: 6px; }
+}
+
+@layer components {
+  .gutter {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--caramelo);
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 font-semibold transition
+      min-h-[52px] select-none disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primario { @apply btn bg-espresso text-creme shadow-[0_6px_0_-2px_rgba(50,29,22,.35)] hover:bg-cafe active:translate-y-px; }
+  .btn-secundario { @apply btn border border-cafe/40 bg-creme/70 text-cafe hover:bg-creme hover:border-cafe; }
+  .btn-texto { @apply inline-flex items-center gap-1.5 font-semibold text-cafe underline-offset-4 hover:underline min-h-[44px]; }
+  .moldura {
+    background: var(--creme);
+    border: 1px solid var(--linha);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 18px 40px -28px rgba(50, 29, 22, 0.45);
+  }
+  .moldura-dupla { position: relative; }
+  .moldura-dupla::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(185, 154, 98, 0.45);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .campo {
+    @apply w-full rounded-xl border bg-creme px-4 py-3 text-[16px] text-tinta transition placeholder:text-cafe/40;
+    border-color: rgba(91, 57, 40, 0.3);
+  }
+  .campo:focus { outline: none; border-color: var(--caramelo); box-shadow: 0 0 0 3px rgba(166, 106, 63, 0.22); }
+  .campo[aria-invalid='true'] { border-color: #9a3b26; box-shadow: 0 0 0 3px rgba(154, 59, 38, 0.15); }
+  .sepia { filter: sepia(0.35) contrast(1.02) saturate(0.85); }
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
