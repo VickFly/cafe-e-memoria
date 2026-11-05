@@ -117,6 +117,13 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
             ))}
           </div>
 
+          {fotoAtiva && parada.semFotoNota && (
+            <p className="mt-3 text-[0.82rem] text-cafe/80">
+              {parada.semFotoNota.texto}{' '}
+              <a href={parada.semFotoNota.link} target="_blank" rel="noreferrer" className="underline underline-offset-2">Abrir no Commons</a>
+            </p>
+          )}
+
           {parada.atencao && (
             <p className="mt-6 flex gap-3 rounded-xl bg-oliva/10 p-4 text-[0.92rem] text-tinta/90">
               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-oliva" aria-hidden="true" />

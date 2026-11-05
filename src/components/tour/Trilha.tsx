@@ -89,7 +89,7 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
             const feita = exploradas.has(p.numero)
             const chegou = estacao >= p.numero
             const ultima = p.numero === total
-            const capa = p.fotos.historica
+            const capa = p.fotos.historica ?? p.fotos.atual
             return (
               <li key={p.slug} className="relative pb-10 pl-16 last:pb-0" style={{ animationDelay: `${i * 80}ms` }}>
                 <span

@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/baixar-imagens.mjs && tsc -b && vite build",
     "build:preview": "vite build --mode singlefile",
     "preview": "vite preview",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "imagens": "node scripts/baixar-imagens.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

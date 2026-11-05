@@ -15,6 +15,8 @@ type Props = {
 /** Fotografia com moldura de documento antigo. Se a imagem falhar, mostra uma moldura ilustrada com o crédito. */
 export function Foto({ imagem, className = '', proporcao = '4 / 3', prioridade, semLegenda }: Props) {
   const [estado, setEstado] = useState<'carregando' | 'ok' | 'erro'>('carregando')
+  // tenta primeiro a cópia do próprio site; se faltar, usa o Commons; se falhar de novo, mostra a moldura
+  const [usarReserva, setUsarReserva] = useState(false)
 
   return (
     <figure className={`min-w-0 ${className}`}>
@@ -24,13 +26,13 @@ export function Foto({ imagem, className = '', proporcao = '4 / 3', prioridade, 
       >
         {estado !== 'erro' && (
           <img
-            src={imagem.src}
+            src={usarReserva ? imagem.reserva : imagem.src}
             alt={imagem.legenda}
             loading={prioridade ? 'eager' : 'lazy'}
             decoding="async"
             referrerPolicy="no-referrer"
             onLoad={() => setEstado('ok')}
-            onError={() => setEstado('erro')}
+            onError={() => (usarReserva ? setEstado('erro') : setUsarReserva(true))}
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
               imagem.tipo === 'historica' ? 'sepia' : ''
             } ${estado === 'ok' ? 'opacity-100' : 'opacity-0'}`}

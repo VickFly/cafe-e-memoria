@@ -97,10 +97,10 @@ export const paradas: Parada[] = [
       'Em 1934 a Bolsa de Valores de São Paulo instalou-se no Palácio do Café, no Pátio do Colégio. No ano seguinte passou a se chamar Bolsa Oficial de Valores de São Paulo.',
     atencao:
       'Largo do Café, Palácio do Café e Bolsa de Valores não são o mesmo lugar. O largo é um espaço público de negociação; o Palácio do Café é um edifício no Pátio do Colégio; a Bolsa é uma instituição que mudou de sede ao longo do tempo.',
-    fotos: {},
+    fotos: { atual: imagens.largoAtual },
     semFotoNota: {
       texto:
-        'Não encontramos uma fotografia histórica do largo com origem verificada. Veja fotos do local no Wikimedia Commons.',
+        'Não encontramos uma fotografia histórica do largo com origem verificada. Veja mais fotos do local no Wikimedia Commons.',
       link: largoDoCafeCommons,
     },
     ilustracao: 'saca',

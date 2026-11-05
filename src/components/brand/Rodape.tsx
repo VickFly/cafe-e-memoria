@@ -26,7 +26,7 @@ export function Rodape() {
           <h2 className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-ouro">Créditos das imagens</h2>
           <ul className="mt-3 space-y-1.5 text-sm">
             {Object.values(imagens).map((i) => (
-              <li key={i.src}><a className="underline decoration-creme/25 underline-offset-2 hover:decoration-creme" href={i.pagina} target="_blank" rel="noreferrer">{i.legenda}</a> — {i.credito}</li>
+              <li key={i.pagina}><a className="underline decoration-creme/25 underline-offset-2 hover:decoration-creme" href={i.pagina} target="_blank" rel="noreferrer">{i.legenda}</a> — {i.credito}</li>
             ))}
           </ul>
           <p className="mt-3 text-xs text-creme/60">Ilustrações vetoriais criadas para este projeto.</p>
