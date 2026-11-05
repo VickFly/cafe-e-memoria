@@ -92,7 +92,7 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
                       onClick={() => setAba(t)}
                       className={`min-h-[40px] rounded-full px-5 text-sm font-semibold transition ${aba === t ? 'bg-espresso text-creme' : 'text-cafe hover:text-espresso'}`}
                     >
-                      {t === 'historica' ? 'Ontem' : 'Hoje'}
+                      {t === 'historica' ? 'Antigamente' : 'Hoje'}
                     </button>
                   ))}
                 </div>

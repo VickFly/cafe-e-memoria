@@ -35,7 +35,7 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
         </h2>
         <p className="mt-4 max-w-[60ch] text-tinta/85">
           Siga a ordem do tour. Toque em <strong className="font-semibold text-espresso">Explorar parada</strong> para ver
-          fotos de ontem e de hoje, os destaques e uma curiosidade de cada lugar.
+          fotos de antigamente e de hoje, os destaques e uma curiosidade de cada lugar.
         </p>
       </div>
 
