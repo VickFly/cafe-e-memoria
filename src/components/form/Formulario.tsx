@@ -2,14 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, HardDrive, Loader2, Lock, Send } from 'lucide-react'
 import { guiasTexto, tourConfig } from '../../config/tour'
 import {
-  criteriosGuias, emailValido, LIMITE_MARCANTE, LIMITE_OPCIONAL, perguntasConteudo,
+  criteriosGuias, emailValido, LIMITE_MARCANTE, LIMITE_OPCIONAL, opcoesRelacao, perguntaPercepcao, perguntaRelacao, perguntasConteudo,
   type Avaliacao, type Rascunho,
 } from '../../data/avaliacao'
 import { enviarAvaliacao, modo } from '../../lib/storage'
 import { Grao, Ramo } from '../brand/Ilustracoes'
-import { AvaliacaoGraos, CampoTexto, EscalaNPS, EscolhaSPN, MensagemErro } from './Controles'
+import { AvaliacaoGraos, CampoTexto, EscalaNPS, EscolhaLista, EscolhaSPN, MensagemErro } from './Controles'
 
-const etapas = ['Você', 'Experiência', 'Guias', 'Conteúdo', 'Comentários'] as const
+const etapas = ['Você', 'Experiência', 'Guias', 'Conteúdo', 'Lugares', 'Comentários'] as const
+const ULTIMA = etapas.length - 1
 
 type Props = {
   rascunho: Rascunho
@@ -34,7 +35,11 @@ function validar(etapa: number, r: Rascunho): Erros {
     perguntasConteudo.forEach((p) => { if (!r.conteudo[p.id]) e[`c-${p.id}`] = 'Escolha uma das opções.' })
     if (r.recomendacao === null) e.recomendacao = 'Escolha uma nota de 0 a 10.'
   }
-  if (etapa === 4 && r.marcante.trim().length < 3) e.marcante = 'Conte em poucas palavras o que mais marcou você.'
+  if (etapa === 4) {
+    if (!r.relacao) e.relacao = 'Escolha a opção que mais combina com você.'
+    if (!r.percepcao) e.percepcao = 'Escolha uma das opções.'
+  }
+  if (etapa === 5 && r.marcante.trim().length < 3) e.marcante = 'Conte em poucas palavras o que mais marcou você.'
   return e
 }
 
@@ -79,7 +84,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
   const voltar = () => (etapa === 0 ? onVoltarTrilha() : setEtapa(etapa - 1))
 
   const enviar = async () => {
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 0; i <= ULTIMA; i++) {
       const e = validar(i, r)
       if (Object.keys(e).length) {
         setErros(e)
@@ -98,6 +103,8 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
       recomendacao: r.recomendacao!,
       notasGuias: r.notasGuias as Avaliacao['notasGuias'],
       conteudo: r.conteudo as Avaliacao['conteudo'],
+      relacao: r.relacao!,
+      percepcao: r.percepcao!,
       guias: [...tourConfig.guias],
       enviadoEm: new Date().toISOString(),
     }
@@ -127,7 +134,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
           <div className="h-2 overflow-hidden rounded-full bg-cafe/10">
             <div className="h-full rounded-full bg-gradient-to-r from-caramelo to-cafe transition-[width] duration-500 ease-out" style={{ width: `${progresso}%` }} />
           </div>
-          <ol className="mt-3 hidden grid-cols-5 gap-1 text-center text-[0.72rem] font-semibold uppercase tracking-wider min-[440px]:grid">
+          <ol className="mt-3 hidden grid-cols-6 gap-1 text-center text-[0.68rem] font-semibold uppercase tracking-wider sm:grid">
             {etapas.map((nome, i) => (
               <li key={nome} className={`flex items-center justify-center gap-1 ${i < etapa ? 'text-oliva' : i === etapa ? 'text-espresso' : 'text-cafe/80'}`}>
                 {i < etapa && <Check className="h-3 w-3" />} {nome}
@@ -245,6 +252,19 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
           )}
 
           {etapa === 4 && (
+            <div className="space-y-8">
+              <Cabecalho titulo="Você e os lugares" texto="Queremos entender a sua relação com os espaços do percurso." />
+              <div id="campo-relacao">
+                <EscolhaLista rotulo={perguntaRelacao} opcoes={opcoesRelacao} valor={r.relacao} onChange={(v) => set('relacao', v)} erro={erros.relacao} />
+              </div>
+              <div id="campo-percepcao">
+                <EscolhaSPN rotulo={perguntaPercepcao} valor={r.percepcao ?? undefined} onChange={(v) => set('percepcao', v)} erro={erros.percepcao} />
+              </div>
+              <Ramo className="mx-auto w-36 text-oliva/50" />
+            </div>
+          )}
+
+          {etapa === 5 && (
             <div className="space-y-7">
               <Cabecalho titulo="Queremos saber o que mais marcou você!" texto="Sua resposta ajuda a melhorar as próximas edições." />
               <div id="campo-marcante">
@@ -276,7 +296,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
             <button type="button" className="btn-secundario" onClick={voltar} disabled={enviando}>
               <ArrowLeft className="h-4 w-4" aria-hidden="true" /> {etapa === 0 ? 'Voltar à trilha' : 'Voltar'}
             </button>
-            {etapa < 4 ? (
+            {etapa < ULTIMA ? (
               <button type="button" className="btn-primario" onClick={avancar}>
                 Continuar <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>

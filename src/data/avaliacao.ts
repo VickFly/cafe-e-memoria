@@ -27,6 +27,18 @@ export const opcoesSPN: { valor: RespostaSPN; label: string }[] = [
   { valor: 'nao', label: 'Não' },
 ]
 
+/** Etapa "Você e os lugares" */
+export const perguntaRelacao = 'Como você se relaciona com os espaços visitados?'
+export const perguntaPercepcao = 'A sua percepção desses lugares mudou após a visita?'
+
+export type RelacaoEspacos = 'cotidiano' | 'conhecia' | 'primeira'
+
+export const opcoesRelacao: { valor: RelacaoEspacos; label: string; detalhe: string }[] = [
+  { valor: 'cotidiano', label: 'Fazem parte do meu dia a dia', detalhe: 'Passo, trabalho ou estudo por ali' },
+  { valor: 'conhecia', label: 'Já conhecia, mas frequento pouco', detalhe: 'Vou de vez em quando' },
+  { valor: 'primeira', label: 'Foi a minha primeira vez', detalhe: 'Conheci esses lugares no tour' },
+]
+
 export const LIMITE_MARCANTE = 1000
 export const LIMITE_OPCIONAL = 600
 
@@ -38,14 +50,19 @@ export type Rascunho = {
   notasGuias: Partial<Record<CriterioGuiaId, number>>
   conteudo: Partial<Record<PerguntaConteudoId, RespostaSPN>>
   recomendacao: number | null
+  relacao: RelacaoEspacos | null
+  percepcao: RespostaSPN | null
   marcante: string
   sugestao: string
   aprender: string
 }
 
-export type Avaliacao = Omit<Rascunho, 'notaGeral' | 'recomendacao' | 'notasGuias' | 'conteudo'> & {
+export type Avaliacao = Omit<Rascunho, 'notaGeral' | 'recomendacao' | 'notasGuias' | 'conteudo' | 'relacao' | 'percepcao'> & {
   notaGeral: number
   recomendacao: number
+  /** Opcionais: avaliações enviadas antes destas perguntas existirem não têm esses campos. */
+  relacao?: RelacaoEspacos
+  percepcao?: RespostaSPN
   notasGuias: Record<CriterioGuiaId, number>
   conteudo: Record<PerguntaConteudoId, RespostaSPN>
   guias: string[]
@@ -60,6 +77,8 @@ export const novoRascunho = (): Rascunho => ({
   notasGuias: {},
   conteudo: {},
   recomendacao: null,
+  relacao: null,
+  percepcao: null,
   marcante: '',
   sugestao: '',
   aprender: '',

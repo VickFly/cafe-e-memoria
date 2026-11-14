@@ -1,4 +1,4 @@
-import { criteriosGuias, perguntasConteudo, rotulosNota, type Avaliacao } from '../data/avaliacao'
+import { criteriosGuias, opcoesRelacao, perguntaPercepcao, perguntaRelacao, perguntasConteudo, rotulosNota, type Avaliacao } from '../data/avaliacao'
 
 const media = (ns: number[]) => (ns.length ? ns.reduce((a, b) => a + b, 0) / ns.length : 0)
 
@@ -14,10 +14,14 @@ export function resumir(lista: Avaliacao[]) {
     lista.forEach((a) => { const v = a.conteudo?.[p.id]; if (v) cont[v]++ })
     return { ...p, ...cont }
   })
+  const responderamLugares = lista.filter((a) => a.relacao).length
+  const relacao = opcoesRelacao.map((o) => ({ ...o, n: lista.filter((a) => a.relacao === o.valor).length }))
+  const percepcao = { sim: 0, parcialmente: 0, nao: 0 }
+  lista.forEach((a) => { if (a.percepcao) percepcao[a.percepcao]++ })
   const promotores = lista.filter((a) => a.recomendacao >= 9).length
   const detratores = lista.filter((a) => a.recomendacao <= 6).length
   const nps = total ? Math.round(((promotores - detratores) / total) * 100) : 0
-  return { total, geral, distribuicao, criterios, conteudo, nps, promotores, detratores, mediaRecomendacao: media(lista.map((a) => a.recomendacao)) }
+  return { total, geral, distribuicao, criterios, conteudo, relacao, percepcao, responderamLugares, nps, promotores, detratores, mediaRecomendacao: media(lista.map((a) => a.recomendacao)) }
 }
 
 const esc = (v: unknown) => {
@@ -33,6 +37,7 @@ export function gerarCSV(lista: Avaliacao[]) {
     'Enviado em', 'Nome', 'E-mail', 'Guias', 'Nota geral',
     ...criteriosGuias.map((c) => `Guias: ${c.label}`),
     ...perguntasConteudo.map((p) => p.label),
+    perguntaRelacao, perguntaPercepcao,
     'Recomendação (0-10)', 'Parte mais marcante', 'Sugestão', 'Gostaria de ter aprendido',
   ]
   const linhas = lista.map((a) => [
@@ -40,6 +45,8 @@ export function gerarCSV(lista: Avaliacao[]) {
     a.nome, a.email, a.guias.join(', '), a.notaGeral,
     ...criteriosGuias.map((c) => a.notasGuias?.[c.id] ?? ''),
     ...perguntasConteudo.map((p) => (a.conteudo?.[p.id] ? rot[a.conteudo[p.id]] : '')),
+    opcoesRelacao.find((o) => o.valor === a.relacao)?.label ?? '',
+    a.percepcao ? rot[a.percepcao] : '',
     a.recomendacao, a.marcante, a.sugestao, a.aprender,
   ])
   return '﻿' + [cab, ...linhas].map((l) => l.map(esc).join(';')).join('\r\n')

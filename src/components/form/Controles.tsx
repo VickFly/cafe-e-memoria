@@ -163,6 +163,49 @@ export function EscalaNPS({ rotulo, valor, onChange, erro, id }: { rotulo: strin
   )
 }
 
+type OpcaoLista<T extends string> = { valor: T; label: string; detalhe?: string }
+
+/** Escolha única em cartões empilhados, com setas do teclado (para opções com textos mais longos). */
+export function EscolhaLista<T extends string>({ rotulo, opcoes, valor, onChange, erro, id }: { rotulo: string; opcoes: OpcaoLista<T>[]; valor: T | null; onChange: (v: T) => void; erro?: string; id?: string }) {
+  const autoId = useId()
+  const base = id ?? autoId
+  const atual = opcoes.findIndex((o) => o.valor === valor)
+  const { refs, onKeyDown } = useSetas(opcoes.length, atual, (i) => onChange(opcoes[i].valor))
+  return (
+    <div className="min-w-0" id={base}>
+      <p id={`${base}-rotulo`} className="font-medium leading-snug text-espresso">{rotulo}</p>
+      <div role="radiogroup" aria-labelledby={`${base}-rotulo`} aria-invalid={erro ? true : undefined} onKeyDown={onKeyDown} className="mt-3 grid gap-2">
+        {opcoes.map((o, i) => {
+          const sel = valor === o.valor
+          return (
+            <button
+              key={o.valor}
+              ref={(el) => (refs.current[i] = el)}
+              type="button"
+              role="radio"
+              aria-checked={sel}
+              tabIndex={sel || (atual < 0 && i === 0) ? 0 : -1}
+              onClick={() => onChange(o.valor)}
+              className={`flex min-h-[56px] w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition ${
+                sel ? 'border-espresso bg-espresso text-creme' : 'border-cafe/25 bg-creme text-cafe hover:border-cafe'
+              }`}
+            >
+              <span aria-hidden="true" className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 ${sel ? 'border-ouro bg-ouro text-espresso' : 'border-cafe/40'}`}>
+                {sel && <Check className="h-3 w-3" strokeWidth={3} />}
+              </span>
+              <span className="min-w-0">
+                <span className="block text-[0.95rem] font-semibold leading-snug">{o.label}</span>
+                {o.detalhe && <span className={`block text-[0.82rem] leading-snug ${sel ? 'text-creme/85' : 'text-cafe/80'}`}>{o.detalhe}</span>}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+      {erro && <MensagemErro texto={erro} />}
+    </div>
+  )
+}
+
 export function MensagemErro({ texto, id }: { texto: string; id?: string }) {
   return (
     <p id={id} role="alert" className="mt-2 flex items-center gap-1.5 text-sm font-medium text-[#9a3b26]">

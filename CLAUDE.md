@@ -54,6 +54,7 @@ Componentes em `src/components/`:
 - **Desempenho da locomotiva (`useTremNaRolagem` em `Trilha.tsx`):** a rolagem só define o alvo e um laço de rAF suaviza o movimento. Ao mexer: animar apenas `transform`/`opacity`; não usar filtros CSS (`drop-shadow`, `blur`) em elementos que se movem; não ler layout a cada quadro (posições ficam em cache); não chamar `setState` por quadro.
 - **Acessibilidade:** rótulos em todos os campos, grupos de nota com `role="radiogroup"` e setas do teclado, erros em texto (não só cor), foco visível, respeitar `prefers-reduced-motion` (já tratado globalmente em `index.css`).
 - **Identidade visual:** usar as cores do Tailwind (`espresso`, `cafe`, `caramelo`, `papel`, `creme`, `oliva`, `ouro`, `tinta`) e as classes utilitárias de `index.css` (`gutter`, `eyebrow`, `btn-primario`, `btn-secundario`, `btn-texto`, `moldura`, `moldura-dupla`, `campo`). Títulos em Playfair Display (`font-display`), texto em Inter. Tema claro único (papel antigo).
+- As respostas da etapa "Você e os lugares" (`relacao`, `percepcao`) são campos próprios em `Avaliacao`, mas ficam gravadas dentro do jsonb `conteudo` (mapeamento em `storage.ts`), por isso não exigiram alterar a tabela. Avaliações antigas não têm esses campos.
 - Ao mudar o formato de uma avaliação (`Avaliacao` em `avaliacao.ts`), atualizar juntos: `storage.ts` (`paraLinha`/`deLinha`), `relatorio.ts` (resumo e CSV), `Painel.tsx` e `supabase/schema.sql`.
 
 ## Armazenamento e segurança

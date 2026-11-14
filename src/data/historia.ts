@@ -27,9 +27,10 @@ export const paradas: Parada[] = [
     resumo:
       'Por estes trilhos o café do interior seguia até o Porto de Santos, e por eles chegavam milhares de imigrantes.',
     contexto: [
-      'A Estação da Luz está ligada diretamente à expansão da economia cafeeira. A primeira estação foi inaugurada em 1867, como parte da São Paulo Railway, a primeira ferrovia da província.',
-      'O edifício atual entrou em operação em 1901. Projeto e boa parte dos materiais, incluindo a estrutura metálica, vieram da Grã-Bretanha.',
-      'A ligação Santos–Jundiaí levava o café produzido no interior paulista até o Porto de Santos e ajudou no deslocamento de imigrantes para as lavouras e para a capital.',
+      'A Estação da Luz surge como parte de uma solução para um problema central da economia cafeeira: o escoamento da produção para o litoral. Com a expansão da cafeicultura do Vale do Paraíba em direção ao Oeste Paulista, as áreas de cultivo se distanciavam progressivamente do litoral, tornando o transporte do café, antes realizado por tropas de mulas, cada vez mais complexo. Nesse contexto, em 1867, entrou em operação a São Paulo Railway, ferrovia que ligava Santos a Jundiaí.',
+      'Sua construção mobilizou trabalhadores livres e escravizados, evidenciando a articulação entre a expansão da infraestrutura ferroviária, a acumulação cafeeira e as relações escravistas de trabalho. A modernização dos transportes não representava uma ruptura com a escravidão, mas se desenvolvia em uma sociedade na qual o trabalho escravizado permanecia fundamental à dinâmica econômica.',
+      'Durante décadas, a São Paulo Railway deteve o monopólio do transporte ferroviário pela Serra do Mar, consolidando a região da Luz como um importante ponto de convergência de rotas e circulação de pessoas e mercadorias. Essa posição estratégica favoreceu a expansão urbana da região, impulsionada também pelos interesses da elite cafeeira, em uma São Paulo cujos contornos eram muito diferentes dos atuais. Em 1946, a São Paulo Railway foi encampada pelo governo federal, passando a integrar o patrimônio da União. Posteriormente, sua rede foi incorporada à Rede Ferroviária Federal.',
+      'Hoje, parte daquele traçado histórico permanece em funcionamento no sistema ferroviário metropolitano, especialmente nos trechos correspondentes às linhas 7-Rubi e 10-Turquesa da CPTM. O edifício atual da Estação da Luz, inaugurado em 1901, guarda, assim, as marcas de uma história que ultrapassa sua arquitetura: a da cafeicultura, da expansão de São Paulo e, sobretudo, de seus trabalhadores, livres e escravizados, que participaram da construção dessa cidade.',
     ],
     destaques: [
       'Primeiro edifício inaugurado em 1867',

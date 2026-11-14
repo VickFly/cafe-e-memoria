@@ -25,7 +25,8 @@ type Linha = {
   guias: string[]
   nota_geral: number
   notas_guias: Avaliacao['notasGuias']
-  conteudo: Avaliacao['conteudo']
+  /** Além de compreensao/interesse/tempo, guarda relacao e percepcao (sem precisar alterar a tabela). */
+  conteudo: Avaliacao['conteudo'] & { relacao?: Avaliacao['relacao']; percepcao?: Avaliacao['percepcao'] }
   recomendacao: number
   marcante: string
   sugestao: string | null
@@ -40,7 +41,7 @@ const paraLinha = (a: Avaliacao): Linha => ({
   guias: a.guias,
   nota_geral: a.notaGeral,
   notas_guias: a.notasGuias,
-  conteudo: a.conteudo,
+  conteudo: { ...a.conteudo, relacao: a.relacao, percepcao: a.percepcao },
   recomendacao: a.recomendacao,
   marcante: a.marcante.trim(),
   sugestao: a.sugestao.trim() || null,
@@ -48,20 +49,25 @@ const paraLinha = (a: Avaliacao): Linha => ({
   enviado_em: a.enviadoEm,
 })
 
-const deLinha = (l: Linha): Avaliacao => ({
+const deLinha = (l: Linha): Avaliacao => {
+  const { relacao, percepcao, ...conteudo } = l.conteudo ?? ({} as Linha['conteudo'])
+  return {
   id: l.id,
   nome: l.nome,
   email: l.email ?? '',
   guias: l.guias ?? [],
   notaGeral: l.nota_geral,
   notasGuias: l.notas_guias,
-  conteudo: l.conteudo,
+  conteudo,
+  relacao,
+  percepcao,
   recomendacao: l.recomendacao,
   marcante: l.marcante,
   sugestao: l.sugestao ?? '',
   aprender: l.aprender ?? '',
   enviadoEm: l.enviado_em,
-})
+  }
+}
 
 export const lerLocal = <T,>(chave: string, padrao: T): T => {
   try {

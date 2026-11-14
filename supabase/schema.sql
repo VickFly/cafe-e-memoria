@@ -8,7 +8,7 @@ create table if not exists public.avaliacoes (
   guias         text[] not null default '{}',
   nota_geral    smallint not null check (nota_geral between 1 and 5),
   notas_guias   jsonb not null,                   -- {clareza, dominio, comunicacao, organizacao, interesse}: 1..5
-  conteudo      jsonb not null,                   -- {compreensao, interesse, tempo}: sim | parcialmente | nao
+  conteudo      jsonb not null,                   -- {compreensao, interesse, tempo, percepcao}: sim | parcialmente | nao; relacao: cotidiano | conhecia | primeira
   recomendacao  smallint not null check (recomendacao between 0 and 10),
   marcante      text not null check (char_length(marcante) between 3 and 1000),
   sugestao      text check (sugestao is null or char_length(sugestao) <= 600),

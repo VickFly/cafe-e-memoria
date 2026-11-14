@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react'
 import { ArrowLeft, Download, HardDrive, Loader2, LogOut, MessageSquareQuote, RefreshCw, Search, Users } from 'lucide-react'
-import { rotulosNota, type Avaliacao } from '../../data/avaliacao'
+import { perguntaPercepcao, perguntaRelacao, rotulosNota, type Avaliacao } from '../../data/avaliacao'
 import { tourConfig } from '../../config/tour'
 import { listarAvaliacoes, modo, supabase } from '../../lib/storage'
 import { baixarCSV, resumir } from '../../lib/relatorio'
@@ -190,6 +190,22 @@ function Dados() {
                   </li>
                 ))}
               </ul>
+              <h2 className="mt-6 text-xl font-bold">Você e os lugares</h2>
+              {r.responderamLugares < r.total && (
+                <p className="mt-1 text-xs text-cafe/80">{r.total - r.responderamLugares} avaliação(ões) anterior(es) a estas perguntas não têm resposta aqui.</p>
+              )}
+              <p className="mt-3 text-sm text-espresso">{perguntaRelacao}</p>
+              <ul className="mt-2 space-y-2">
+                {r.relacao.map((o) => (
+                  <li key={o.valor} className="grid grid-cols-[minmax(0,1fr)_5rem_2rem] items-center gap-3 text-sm">
+                    <span className="min-w-0 text-cafe">{o.label}</span>
+                    <div className="h-2.5 rounded-full bg-cafe/10"><div className="h-full rounded-full bg-oliva" style={{ width: `${r.responderamLugares ? (o.n / r.responderamLugares) * 100 : 0}%` }} /></div>
+                    <span className="tabular text-right font-semibold text-espresso">{o.n}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-espresso">{perguntaPercepcao}</p>
+              <p className="tabular mt-0.5 text-sm text-cafe">Sim {r.percepcao.sim} · Parcialmente {r.percepcao.parcialmente} · Não {r.percepcao.nao}</p>
             </div>
           </div>
 
