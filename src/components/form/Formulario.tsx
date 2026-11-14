@@ -7,7 +7,7 @@ import {
 } from '../../data/avaliacao'
 import { enviarAvaliacao, modo } from '../../lib/storage'
 import { Grao, Ramo } from '../brand/Ilustracoes'
-import { AvaliacaoGraos, CampoTexto, EscalaNPS, EscolhaSPN, MensagemErro } from './Controles'
+import { AvaliacaoGraos, CampoTexto, EscolhaSPN, MensagemErro, RecomendacaoXicara } from './Controles'
 
 const etapas = ['Você', 'Experiência', 'Guias', 'Conteúdo', 'Lugares', 'Comentários'] as const
 const ULTIMA = etapas.length - 1
@@ -245,7 +245,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
                 </div>
               ))}
               <div id="campo-recomendacao">
-                <EscalaNPS rotulo="De 0 a 10, quanto você recomendaria este tour para outras pessoas?" valor={r.recomendacao} onChange={(v) => set('recomendacao', v)} erro={erros.recomendacao} />
+                <RecomendacaoXicara pergunta="De 0 a 10, quanto você recomendaria este tour para outras pessoas?" valor={r.recomendacao} onChange={(v) => set('recomendacao', v)} erro={erros.recomendacao} />
               </div>
             </div>
           )}

@@ -9,8 +9,8 @@ export const tourConfig = {
   nome: 'Café & Memória',
   slogan: 'Uma viagem pela história do café em São Paulo.',
   instituicao: 'Universidade de São Paulo (USP)',
-  data: '7 de novembro de 2026',
-  dataISO: '2026-11-07',
+  data: 'Sábado, 14 de novembro de 2026',
+  dataISO: '2026-11-14',
   horario: '13h às 15h',
   pontoEncontro: 'Estação da Luz',
 

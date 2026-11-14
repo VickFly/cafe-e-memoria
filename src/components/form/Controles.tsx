@@ -124,13 +124,13 @@ export function EscolhaSPN({ rotulo, valor, onChange, erro, id }: { rotulo: stri
   )
 }
 
-export function EscalaNPS({ rotulo, valor, onChange, erro, id }: { rotulo: string; valor: number | null; onChange: (v: number) => void; erro?: string; id?: string }) {
+export function EscalaNPS({ rotulo, valor, onChange, erro, id, ocultarRotulo }: { rotulo: string; valor: number | null; onChange: (v: number) => void; erro?: string; id?: string; ocultarRotulo?: boolean }) {
   const autoId = useId()
   const base = id ?? autoId
   const { refs, onKeyDown } = useSetas(11, valor ?? -1, onChange)
   return (
     <div className="min-w-0" id={base}>
-      <p id={`${base}-rotulo`} className="font-medium leading-snug text-espresso">{rotulo}</p>
+      <p id={`${base}-rotulo`} className={ocultarRotulo ? 'sr-only' : 'font-medium leading-snug text-espresso'}>{rotulo}</p>
       <div role="radiogroup" aria-labelledby={`${base}-rotulo`} aria-invalid={erro ? true : undefined} onKeyDown={onKeyDown} className="mt-3 grid grid-cols-6 gap-1.5 min-[480px]:grid-cols-11">
         {Array.from({ length: 11 }, (_, n) => {
           const sel = valor === n
@@ -231,6 +231,47 @@ export function CampoTexto({
         <span id={`${id}-contador`} className={`tabular shrink-0 text-xs ${restante < 50 ? 'text-caramelo-texto' : 'text-cafe/80'}`} aria-live={restante < 50 ? 'polite' : 'off'}>
           {valor.length}/{limite}
         </span>
+      </div>
+    </div>
+  )
+}
+
+const fraseRecomendacao = (v: number | null) =>
+  v === null ? 'Toque em uma nota para encher a xícara' : v <= 6 ? 'Ainda falta um pouco de café' : v <= 8 ? 'Um bom café' : 'Xícara cheia: recomendaria muito!'
+
+/** Recomendação de 0 a 10: a xícara enche conforme a nota escolhida. */
+export function RecomendacaoXicara({ pergunta, valor, onChange, erro }: { pergunta: string; valor: number | null; onChange: (v: number) => void; erro?: string }) {
+  const nivel = valor === null ? 0 : valor / 10
+  const topo = 30 + (1 - nivel) * 62
+  return (
+    <div className="min-w-0">
+      <p className="font-medium leading-snug text-espresso">{pergunta}</p>
+      <div className="mt-2 flex flex-col items-center" aria-hidden="true">
+        <svg viewBox="0 0 140 120" className="h-36 w-auto">
+          <defs>
+            <clipPath id="xicara-nps"><path d="M24 30h76v32c0 22-17 36-38 36S24 84 24 62z" /></clipPath>
+          </defs>
+          <g clipPath="url(#xicara-nps)">
+            <rect x="20" y="26" width="84" height="76" fill="#F3EBDD" />
+            <rect x="20" y={topo} width="84" height="80" fill="#5B3928" style={{ transition: 'y .6s cubic-bezier(.3,.8,.3,1)' }} />
+            <path d={`M20 ${topo + 1} q 10.5 -5 21 0 t 21 0 t 21 0 t 21 0 v 7 h -84z`} fill="#A66A3F" opacity=".75" style={{ transition: 'd .6s cubic-bezier(.3,.8,.3,1)' }} />
+          </g>
+          <path d="M24 30h76v32c0 22-17 36-38 36S24 84 24 62z" fill="none" stroke="#321D16" strokeWidth="3" />
+          <path d="M100 42c17 0 19 26 0 26" fill="none" stroke="#321D16" strokeWidth="3" />
+          <path d="M10 104h104c-5 7-14 9-52 9s-47-2-52-9z" fill="none" stroke="#321D16" strokeWidth="3" strokeLinejoin="round" />
+          {valor !== null && valor >= 7 && (
+            <g fill="none" stroke="#5B3928" strokeWidth="2.4" strokeLinecap="round" opacity=".55">
+              <path className="animate-steam" d="M46 22c-4-6 4-8 0-14" />
+              <path className="animate-steam" style={{ animationDelay: '.7s' }} d="M62 20c-4-6 4-8 0-14" />
+              <path className="animate-steam" style={{ animationDelay: '1.3s' }} d="M78 22c-4-6 4-8 0-14" />
+            </g>
+          )}
+        </svg>
+        <p className="tabular -mt-1 font-display text-5xl font-extrabold text-espresso">{valor ?? '–'}</p>
+        <p className="mt-1 min-h-[1.5em] text-center font-display text-lg italic text-caramelo-texto">{fraseRecomendacao(valor)}</p>
+      </div>
+      <div className="mt-4">
+        <EscalaNPS rotulo={pergunta} valor={valor} onChange={onChange} erro={erro} ocultarRotulo />
       </div>
     </div>
   )

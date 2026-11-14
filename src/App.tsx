@@ -12,7 +12,7 @@ import { novoRascunho, type Avaliacao, type Rascunho } from './data/avaliacao'
 import { gravarLocal, lerLocal } from './lib/storage'
 
 type Tela = 'tour' | 'form' | 'fim'
-type Progresso = { tela: Tela; etapa: number; exploradas: number[]; enviado?: { id: string; nome: string } }
+type Progresso = { tela: Tela; etapa: number; exploradas: number[]; respostas: Record<string, number>; enviado?: { id: string; nome: string } }
 
 const CHAVE_PROGRESSO = 'cafe-memoria:progresso'
 const CHAVE_RASCUNHO = 'cafe-memoria:rascunho'
@@ -20,7 +20,7 @@ const ROTA_PAINEL = '#painel'
 
 export default function App() {
   const [progresso, setProgresso] = useState<Progresso>(() => {
-    const p = lerLocal<Progresso>(CHAVE_PROGRESSO, { tela: 'tour', etapa: 0, exploradas: [] })
+    const p: Progresso = { tela: 'tour', etapa: 0, exploradas: [], respostas: {}, ...lerLocal<Partial<Progresso>>(CHAVE_PROGRESSO, {}) }
     // Quem já enviou e recarrega a página volta para a tela da receita, não para o formulário.
     if (p.tela === 'fim' && !p.enviado) p.tela = 'tour'
     return p
@@ -86,7 +86,13 @@ export default function App() {
           <>
             <Inicio onComecar={() => document.getElementById('historia')?.scrollIntoView({ behavior: 'smooth' })} />
             <Introducao />
-            <Trilha exploradas={new Set(progresso.exploradas)} onExplorar={explorar} onAvaliar={() => ir(progresso.enviado ? 'fim' : 'form')} />
+            <Trilha
+              exploradas={new Set(progresso.exploradas)}
+              onExplorar={explorar}
+              onAvaliar={() => ir(progresso.enviado ? 'fim' : 'form')}
+              respostas={progresso.respostas}
+              onResponder={(slug, i) => setProgresso((p) => (p.respostas[slug] !== undefined ? p : { ...p, respostas: { ...p.respostas, [slug]: i } }))}
+            />
           </>
         )}
         {progresso.tela === 'form' && (

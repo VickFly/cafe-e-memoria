@@ -1,15 +1,42 @@
-import { useEffect, useRef, useState } from 'react'
-import { AlertCircle, ChevronLeft, ChevronRight, ExternalLink, Lightbulb, MapPin, X } from 'lucide-react'
+import { useEffect, useRef, useState, type PointerEvent } from 'react'
+import { AlertCircle, ChevronLeft, ChevronRight, Clock, ExternalLink, Lightbulb, MapPin, X } from 'lucide-react'
 import type { Parada } from '../../data/historia'
 import { paradas } from '../../data/historia'
 import { Foto } from '../brand/Foto'
 import { ilustracaoPorTipo } from '../brand/Ilustracoes'
+import { extras } from '../../data/jornada'
+import { Desafio } from './Desafio'
 
-type Props = { parada: Parada; onFechar: () => void; onIr: (n: number) => void }
+type Props = { parada: Parada; onFechar: () => void; onIr: (n: number) => void; resposta?: number; onResponder: (i: number) => void }
+
+const minutosDeLeitura = (p: Parada) => Math.max(1, Math.round(p.contexto.join(' ').split(/\s+/).length / 200))
 
 /** Painel de detalhes da parada: folha inferior no celular, janela central no desktop. */
-export function PainelParada({ parada, onFechar, onIr }: Props) {
+export function PainelParada({ parada, onFechar, onIr, resposta, onResponder }: Props) {
   const ref = useRef<HTMLDivElement>(null)
+  const arraste = useRef<{ y0: number; dy: number } | null>(null)
+  const extra = extras[parada.slug]
+
+  // no celular, arrastar a alça para baixo fecha o painel
+  const inicioArraste = (e: PointerEvent<HTMLDivElement>) => {
+    if (window.innerWidth >= 640 || (e.target as HTMLElement).closest('button')) return
+    arraste.current = { y0: e.clientY, dy: 0 }
+    e.currentTarget.setPointerCapture(e.pointerId)
+    if (ref.current) ref.current.style.transition = 'none'
+  }
+  const moverArraste = (e: PointerEvent<HTMLDivElement>) => {
+    if (!arraste.current || !ref.current) return
+    arraste.current.dy = Math.max(0, e.clientY - arraste.current.y0)
+    ref.current.style.transform = `translateY(${arraste.current.dy}px)`
+  }
+  const fimArraste = () => {
+    const a = arraste.current
+    arraste.current = null
+    if (!a || !ref.current) return
+    if (a.dy > 110) return onFechar()
+    ref.current.style.transition = 'transform .25s ease-out'
+    ref.current.style.transform = ''
+  }
   const [aba, setAba] = useState<'historica' | 'atual'>(parada.fotos.historica ? 'historica' : 'atual')
   const Ilustracao = ilustracaoPorTipo[parada.ilustracao]
   const temComparacao = Boolean(parada.fotos.historica && parada.fotos.atual)
@@ -58,11 +85,20 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
         className="relative max-h-[92vh] w-full max-w-3xl animate-rise overflow-y-auto overscroll-contain rounded-t-3xl bg-creme shadow-2xl sm:rounded-3xl"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-cafe/10 bg-creme/95 py-3 backdrop-blur gutter">
+        <div
+          className="sticky top-0 z-10 touch-none border-b border-cafe/10 bg-creme/95 backdrop-blur sm:touch-auto"
+          onPointerDown={inicioArraste}
+          onPointerMove={moverArraste}
+          onPointerUp={fimArraste}
+          onPointerCancel={fimArraste}
+        >
+          <div className="mx-auto mt-2 h-1.5 w-11 rounded-full bg-cafe/25 sm:hidden" aria-hidden="true" />
+          <div className="gutter flex items-center justify-between gap-3 py-2.5">
           <span className="eyebrow">Parada {String(parada.numero).padStart(2, '0')} de 04</span>
           <button type="button" data-foco-inicial onClick={onFechar} className="grid h-11 w-11 place-items-center rounded-full border border-cafe/20 text-cafe hover:bg-papel" aria-label="Fechar">
             <X className="h-5 w-5" />
           </button>
+          </div>
         </div>
 
         <div className="gutter pb-8 pt-5">
@@ -75,6 +111,9 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
               </h2>
               <p className="mt-2 flex items-center gap-1.5 text-sm text-cafe">
                 <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" /> {parada.local}
+              </p>
+              <p className="mt-1 flex items-center gap-1.5 text-sm text-cafe">
+                <Clock className="h-4 w-4 shrink-0" aria-hidden="true" /> cerca de {minutosDeLeitura(parada)} min de leitura
               </p>
             </div>
           </div>
@@ -111,9 +150,14 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
             )
           )}
 
-          <div className="mt-7 space-y-4 text-[1.02rem] leading-relaxed text-tinta/90">
-            {parada.contexto.map((p) => (
-              <p key={p}>{p}</p>
+          <div className="mt-7 space-y-4 text-[1.04rem] leading-[1.75] text-tinta/90">
+            {parada.contexto.map((p, i) => (
+              <p
+                key={p}
+                className={i === 0 ? 'first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:font-display first-letter:text-[3.3rem] first-letter:font-bold first-letter:leading-[0.8] first-letter:text-caramelo-texto' : undefined}
+              >
+                {p}
+              </p>
             ))}
           </div>
 
@@ -147,6 +191,10 @@ export function PainelParada({ parada, onFechar, onIr }: Props) {
             </p>
             <p className="mt-2 font-display text-lg italic leading-snug">{parada.curiosidade}</p>
           </div>
+
+          {extra && (
+            <Desafio quiz={extra.quiz} numero={parada.numero} nome={parada.nome} ano={extra.carimbo} tinta={extra.tinta} resposta={resposta} onResponder={onResponder} />
+          )}
 
           {parada.fotos.extra && (
             <div className="mt-8">

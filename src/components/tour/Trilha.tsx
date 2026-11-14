@@ -1,15 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Check, Flag, TrainFront, Lightbulb, MapPin, PenLine } from 'lucide-react'
+import { Check, Flag, TrainFront, Lightbulb, MapPin, PenLine, Stamp } from 'lucide-react'
 import { paradas } from '../../data/historia'
 import { ilustracaoPorTipo } from '../brand/Ilustracoes'
 import { Foto } from '../brand/Foto'
 import { LocomotivaTopo } from '../brand/Locomotiva'
 import { MapaRota } from './MapaRota'
 import { PainelParada } from './PainelParada'
+import { extras } from '../../data/jornada'
+import { Carimbo } from '../brand/Carimbo'
 
-type Props = { exploradas: Set<number>; onExplorar: (n: number) => void; onAvaliar: () => void }
+type Props = {
+  exploradas: Set<number>
+  onExplorar: (n: number) => void
+  onAvaliar: () => void
+  respostas: Record<string, number>
+  onResponder: (slug: string, i: number) => void
+}
 
-export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
+export function Trilha({ exploradas, onExplorar, onAvaliar, respostas, onResponder }: Props) {
   const [aberta, setAberta] = useState<number | null>(null)
   const total = paradas.length
   const feitas = exploradas.size
@@ -35,7 +43,8 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
         </h2>
         <p className="mt-4 max-w-[60ch] text-tinta/85">
           Siga a ordem do tour. Toque em <strong className="font-semibold text-espresso">Explorar parada</strong> para ver
-          fotos de antigamente e de hoje, os destaques e uma curiosidade de cada lugar.
+          fotos de antigamente e de hoje, os destaques e uma curiosidade de cada lugar. No fim de cada parada há um
+          desafio rápido que vale um <strong className="font-semibold text-espresso">carimbo</strong>.
         </p>
       </div>
 
@@ -133,11 +142,15 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
                         <button type="button" className={feita ? 'btn-secundario' : 'btn-primario'} onClick={() => abrir(p.numero)} aria-haspopup="dialog">
                           {feita ? 'Rever parada' : 'Explorar parada'}
                         </button>
-                        {feita && (
-                          <span className="inline-flex items-center gap-1 text-sm font-medium text-oliva">
-                            <Check className="h-4 w-4" aria-hidden="true" /> Explorada
+                        {respostas[p.slug] !== undefined ? (
+                          <span className="inline-flex items-center gap-1 text-sm font-semibold text-oliva">
+                            <Stamp className="h-4 w-4" aria-hidden="true" /> Carimbada
                           </span>
-                        )}
+                        ) : feita ? (
+                          <span className="inline-flex items-center gap-1 text-sm font-medium text-oliva">
+                            <Check className="h-4 w-4" aria-hidden="true" /> Explorada · falta o desafio
+                          </span>
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -171,13 +184,39 @@ export function Trilha({ exploradas, onExplorar, onAvaliar }: Props) {
               <p className="mx-auto mt-2 max-w-[44ch] text-tinta/80">Você pode avaliar agora, mesmo sem abrir todas as paradas aqui no app.</p>
             </>
           )}
+          <div className={`mx-auto mt-6 max-w-md rounded-2xl p-4 ${completa ? 'bg-creme/10' : 'bg-papel'}`}>
+            <p className={`text-[0.72rem] font-semibold uppercase tracking-[0.18em] ${completa ? 'text-ouro' : 'text-caramelo-texto'}`}>
+              Seus carimbos · <span className="tabular">{paradas.filter((p) => respostas[p.slug] !== undefined).length} de {paradas.length}</span>
+            </p>
+            <ul className="mx-auto mt-3 grid max-w-[300px] grid-cols-2 gap-3 min-[520px]:max-w-none min-[520px]:grid-cols-4">
+              {paradas.map((p) => {
+                const ex = extras[p.slug]
+                const tem = respostas[p.slug] !== undefined
+                return (
+                  <li key={p.slug}>
+                    <button type="button" onClick={() => abrir(p.numero)} className={`w-full rounded-full ${completa && !tem ? 'opacity-70' : ''} ${completa ? 'rounded-full bg-creme p-0.5' : ''}`} aria-label={`${p.nome}: ${tem ? 'carimbada' : 'sem carimbo ainda'}. Abrir parada`}>
+                      <Carimbo vazio={!tem} nome={p.nome} ano={ex.carimbo} numero={p.numero} tinta={ex.tinta} className="h-auto w-full" />
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
           <button type="button" onClick={onAvaliar} className={`btn mt-5 px-8 ${completa ? 'bg-creme text-espresso hover:bg-papel' : 'btn-primario'}`}>
             <PenLine className="h-4 w-4" aria-hidden="true" /> Avaliar a experiência
           </button>
         </div>
       </div>
 
-      {paradaAberta && <PainelParada parada={paradaAberta} onFechar={fechar} onIr={abrir} />}
+      {paradaAberta && (
+        <PainelParada
+          parada={paradaAberta}
+          onFechar={fechar}
+          onIr={abrir}
+          resposta={respostas[paradaAberta.slug]}
+          onResponder={(i) => onResponder(paradaAberta.slug, i)}
+        />
+      )}
     </section>
   )
 }

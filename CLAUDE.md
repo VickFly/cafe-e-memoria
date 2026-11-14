@@ -1,6 +1,6 @@
 # CLAUDE.md — Café & Memória
 
-App web (SPA) que acompanha um tour guiado presencial pelo Centro Histórico de São Paulo, sobre a história do café na cidade. Trabalho acadêmico da USP; tour em 7/11/2026, 13h–15h, saindo da Estação da Luz. Os participantes abrem o link no celular (via QR Code), percorrem a trilha de 4 paradas, avaliam o tour e desbloqueiam uma receita.
+App web (SPA) que acompanha um tour guiado presencial pelo Centro Histórico de São Paulo, sobre a história do café na cidade. Trabalho acadêmico da USP; tour em 14/11/2026 (sábado), 13h–15h, saindo da Estação da Luz. Os participantes abrem o link no celular (via QR Code), percorrem a trilha de 4 paradas, avaliam o tour e desbloqueiam uma receita.
 
 **Idioma:** todo texto de interface, comentários e mensagens de commit em **português do Brasil**.
 
@@ -26,18 +26,19 @@ Deploy: Vercel, publicado automaticamente a cada `git push` na `main`. Variávei
 | Imagens e créditos | `src/data/images.ts` |
 | Perguntas, critérios, escalas e tipos do formulário | `src/data/avaliacao.ts` |
 | Receita final | `src/data/receita.ts` |
+| Desafio de cada parada (pergunta, respostas, explicação) e carimbos | `src/data/jornada.ts` (perguntas só com fatos que já estão em `historia.ts`) |
 | Salvar/listar avaliações (Supabase ou localStorage) | `src/lib/storage.ts` |
 | Médias, NPS, CSV do painel | `src/lib/relatorio.ts` |
 | Esquema do banco e regras de acesso (RLS) | `supabase/schema.sql` |
 
 Componentes em `src/components/`:
-- `tour/` — `Inicio` (tela inicial), `Introducao` (linha do tempo), `Trilha` (trilho + locomotiva guiada pela rolagem, cartões, barra de progresso), `PainelParada` (modal com fotos ontem/hoje), `MapaRota` (esquema SVG com trenzinho).
+- `tour/` — `Inicio` (tela inicial), `Introducao` (linha do tempo), `Trilha` (trilho + locomotiva guiada pela rolagem, cartões, barra de progresso), `PainelParada` (modal com fotos antigamente/hoje, leitura com capitular e tempo estimado, arrastar para fechar no celular, desafio da parada), `Desafio` (pergunta que rende o carimbo), `MapaRota` (esquema SVG com trenzinho).
 - `form/` — `Formulario` (5 etapas + validação + envio), `Controles` (grãos de café 1–5, Sim/Parcialmente/Não, NPS 0–10, textarea com contador).
 - `recipe/Agradecimento` — tela final + receita desbloqueada + copiar.
 - `admin/Painel` — rota `#painel`: login, resumo, comentários, exportar CSV.
 - `brand/` — `Ilustracoes` (SVGs lineares), `Locomotiva` (locomotiva lateral, vista de cima e `TremChegando`), `Foto` (imagem com moldura e fallback), `Rodape`.
 
-`App.tsx` controla as telas (`tour` → `form` → `fim`) e salva progresso/rascunho no localStorage (`cafe-memoria:progresso`, `cafe-memoria:rascunho`). Navegação entre etapas preserva respostas.
+`App.tsx` controla as telas (`tour` → `form` → `fim`) e salva progresso (paradas exploradas e respostas dos desafios) e rascunho no localStorage (`cafe-memoria:progresso`, `cafe-memoria:rascunho`). Navegação entre etapas preserva respostas.
 
 ## Regras de conteúdo (importante — é um trabalho acadêmico)
 

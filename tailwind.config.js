@@ -19,6 +19,7 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       keyframes: {
+        carimbar: { '0%': { opacity: '0', transform: 'translateY(-24px) scale(2.3) rotate(-28deg)' }, '60%': { opacity: '1', transform: 'translateY(0) scale(.92) rotate(var(--giro, -8deg))' }, '100%': { opacity: '1', transform: 'scale(1) rotate(var(--giro, -8deg))' } },
         rise: { from: { opacity: '0.001', transform: 'translateY(10px)' }, to: { opacity: '1', transform: 'none' } },
         pop: { '0%': { transform: 'scale(1)' }, '45%': { transform: 'scale(1.28) rotate(-8deg)' }, '100%': { transform: 'scale(1)' } },
         fill: { from: { transform: 'translateY(100%)' }, to: { transform: 'translateY(0)' } },
@@ -32,6 +33,7 @@ export default {
       },
       animation: {
         rise: 'rise .6s cubic-bezier(.2,.7,.2,1) both',
+        carimbar: 'carimbar .55s cubic-bezier(.3,1.4,.5,1) .2s both',
         pop: 'pop .45s ease-out',
         fill: 'fill 2.2s cubic-bezier(.4,0,.2,1) both',
         steam: 'steam 2.4s ease-in-out infinite',
