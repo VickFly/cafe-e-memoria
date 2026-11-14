@@ -32,7 +32,7 @@ Deploy: Vercel, publicado automaticamente a cada `git push` na `main`. Variávei
 | Esquema do banco e regras de acesso (RLS) | `supabase/schema.sql` |
 
 Componentes em `src/components/`:
-- `tour/` — `Inicio` (tela inicial), `Introducao` (linha do tempo), `Trilha` (trilho + locomotiva guiada pela rolagem, cartões, barra de progresso), `PainelParada` (modal com fotos antigamente/hoje, leitura com capitular e tempo estimado, arrastar para fechar no celular, desafio da parada), `Desafio` (pergunta que rende o carimbo), `MapaRota` (esquema SVG com trenzinho).
+- `tour/` — `Inicio` (tela inicial), `Introducao` (carrosséis deslizáveis: seis marcas do café e linha do tempo desenhada como ferrovia), `Trilha` (trilho + locomotiva guiada pela rolagem, cartões, barra de progresso), `PainelParada` (modal com fotos antigamente/hoje, leitura com capitular e tempo estimado, arrastar para fechar no celular, desafio da parada), `Desafio` (pergunta que rende o carimbo), `MapaRota` (esquema SVG com trenzinho).
 - `form/` — `Formulario` (5 etapas + validação + envio), `Controles` (grãos de café 1–5, Sim/Parcialmente/Não, NPS 0–10, textarea com contador).
 - `recipe/Agradecimento` — tela final + receita desbloqueada + copiar.
 - `admin/Painel` — rota `#painel`: login, resumo, comentários, exportar CSV.
