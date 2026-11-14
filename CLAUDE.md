@@ -42,9 +42,9 @@ Componentes em `src/components/`:
 ## Regras de conteúdo (importante — é um trabalho acadêmico)
 
 - **Não inventar fatos, datas, imagens ou relações entre edifícios.** Toda informação histórica nova precisa de fonte; adicione-a em `fontes` em `historia.ts`.
-- Manter a **ordem das paradas**: 1 Estação da Luz → 2 Rua XV de Novembro / Rua Anchieta → 3 Largo do Café e antiga Bolsa → 4 Theatro Municipal.
-- Rua XV de Novembro e Rua Anchieta são **vias distintas** (cada uma com seus antigos nomes). Largo do Café, Palácio do Café e Bolsa de Valores **não são o mesmo lugar**.
-- Pontos ainda não confirmados em fonte: Bolsa no Palácio do Café em **1934**; nome Rua Anchieta oficializado em **1897**. Não reforçar sem fonte.
+- Manter a **ordem das paradas**: 1 Estação da Luz → 2 Rua XV de Novembro (antiga Rua da Imperatriz) → 3 Largo do Café e antiga Bolsa → 4 Theatro Municipal.
+- A parada 2 trata só da Rua XV de Novembro e do café de Maria Punga; a Rua Anchieta foi retirada do roteiro. Largo do Café, Palácio do Café e Bolsa de Valores **não são o mesmo lugar**.
+- Pontos ainda não confirmados em fonte: Bolsa no Palácio do Café em **1934**. Não reforçar sem fonte.
 - O mapa é **esquemático, sem escala**: posições em `esquema` (0–100) só indicam a sequência, não são coordenadas.
 - Imagens: só Wikimedia Commons ou acervos com licença adequada, via `Special:FilePath` (helper `img()` em `images.ts`), sempre com legenda e crédito. Fotos históricas recebem filtro sépia automaticamente (`tipo: 'historica'`).
 

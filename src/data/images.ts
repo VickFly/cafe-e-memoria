@@ -42,7 +42,7 @@ export const imagens = {
   luzAtual: img('luzAtual', 'Estação da Luz hoje', 'Foto: Wilfredor · Wikimedia Commons (CC0)', 'atual'),
   ruaXvHistorica: img('ruaXvHistorica', 'Rua XV de Novembro no início do século XX', GAENSLY, 'historica'),
   ruaXv1920: img('ruaXv1920', 'Rua XV de Novembro por volta de 1920', 'Guilherme Gaensly · Wikimedia Commons (domínio público)', 'historica'),
-  patioAtual: img('patioAtual', 'Pátio do Colégio hoje, a poucos passos da Rua Anchieta', 'Foto: Wilfredor · Wikimedia Commons (CC0)', 'atual'),
+  patioAtual: img('patioAtual', 'Pátio do Colégio hoje, vizinho da Rua XV de Novembro', 'Foto: Wilfredor · Wikimedia Commons (CC0)', 'atual'),
   largoAtual: img('largoAtual', 'Largo do Café em 2022', 'Foto: Eilif Myrhe · Wikimedia Commons (CC BY-SA 4.0)', 'atual'),
   theatroInauguracao: img(
     'theatroInauguracao',
