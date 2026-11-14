@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, HardDrive, Loader2, Lock, Send } from 'lucide-react'
 import { guiasTexto, tourConfig } from '../../config/tour'
 import {
-  criteriosGuias, emailValido, LIMITE_MARCANTE, LIMITE_OPCIONAL, opcoesRelacao, perguntaPercepcao, perguntaRelacao, perguntasConteudo,
+  criteriosGuias, emailValido, LIMITE_MARCANTE, LIMITE_OPCIONAL, ajudaPercepcao, ajudaRelacao, LIMITE_LUGARES, MINIMO_LUGARES, perguntaPercepcao, perguntaRelacao, perguntasConteudo,
   type Avaliacao, type Rascunho,
 } from '../../data/avaliacao'
 import { enviarAvaliacao, modo } from '../../lib/storage'
 import { Grao, Ramo } from '../brand/Ilustracoes'
-import { AvaliacaoGraos, CampoTexto, EscalaNPS, EscolhaLista, EscolhaSPN, MensagemErro } from './Controles'
+import { AvaliacaoGraos, CampoTexto, EscalaNPS, EscolhaSPN, MensagemErro } from './Controles'
 
 const etapas = ['Você', 'Experiência', 'Guias', 'Conteúdo', 'Lugares', 'Comentários'] as const
 const ULTIMA = etapas.length - 1
@@ -36,8 +36,8 @@ function validar(etapa: number, r: Rascunho): Erros {
     if (r.recomendacao === null) e.recomendacao = 'Escolha uma nota de 0 a 10.'
   }
   if (etapa === 4) {
-    if (!r.relacao) e.relacao = 'Escolha a opção que mais combina com você.'
-    if (!r.percepcao) e.percepcao = 'Escolha uma das opções.'
+    if (r.relacao.trim().length < MINIMO_LUGARES) e.relacao = 'Escreva algumas palavras sobre a sua relação com esses espaços.'
+    if (r.percepcao.trim().length < MINIMO_LUGARES) e.percepcao = 'Conte, mesmo que em poucas palavras, se a sua percepção mudou.'
   }
   if (etapa === 5 && r.marcante.trim().length < 3) e.marcante = 'Conte em poucas palavras o que mais marcou você.'
   return e
@@ -103,8 +103,7 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
       recomendacao: r.recomendacao!,
       notasGuias: r.notasGuias as Avaliacao['notasGuias'],
       conteudo: r.conteudo as Avaliacao['conteudo'],
-      relacao: r.relacao!,
-      percepcao: r.percepcao!,
+
       guias: [...tourConfig.guias],
       enviadoEm: new Date().toISOString(),
     }
@@ -253,14 +252,42 @@ export function Formulario({ rascunho: r, setRascunho, etapa, setEtapa, onVoltar
 
           {etapa === 4 && (
             <div className="space-y-8">
-              <Cabecalho titulo="Você e os lugares" texto="Queremos entender a sua relação com os espaços do percurso." />
+              <Cabecalho titulo="Você e os lugares" texto="Não existe resposta certa. Escreva do seu jeito, em poucas ou muitas palavras." />
               <div id="campo-relacao">
-                <EscolhaLista rotulo={perguntaRelacao} opcoes={opcoesRelacao} valor={r.relacao} onChange={(v) => set('relacao', v)} erro={erros.relacao} />
+                <CampoTexto
+                  id="texto-relacao"
+                  rotulo={perguntaRelacao}
+                  ajuda={ajudaRelacao}
+                  valor={r.relacao}
+                  onChange={(v) => set('relacao', v)}
+                  limite={LIMITE_LUGARES}
+                  minimo={MINIMO_LUGARES}
+                  obrigatorio
+                  linhas={4}
+                  erro={erros.relacao}
+                  placeholder="Escreva aqui…"
+                />
+              </div>
+              <div className="flex items-center gap-3" aria-hidden="true">
+                <span className="h-px flex-1 bg-cafe/15" />
+                <Grao className="h-3.5 w-3 text-caramelo" />
+                <span className="h-px flex-1 bg-cafe/15" />
               </div>
               <div id="campo-percepcao">
-                <EscolhaSPN rotulo={perguntaPercepcao} valor={r.percepcao ?? undefined} onChange={(v) => set('percepcao', v)} erro={erros.percepcao} />
+                <CampoTexto
+                  id="texto-percepcao"
+                  rotulo={perguntaPercepcao}
+                  ajuda={ajudaPercepcao}
+                  valor={r.percepcao}
+                  onChange={(v) => set('percepcao', v)}
+                  limite={LIMITE_LUGARES}
+                  minimo={MINIMO_LUGARES}
+                  obrigatorio
+                  linhas={4}
+                  erro={erros.percepcao}
+                  placeholder="Escreva aqui…"
+                />
               </div>
-              <Ramo className="mx-auto w-36 text-oliva/50" />
             </div>
           )}
 

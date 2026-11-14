@@ -25,8 +25,8 @@ type Linha = {
   guias: string[]
   nota_geral: number
   notas_guias: Avaliacao['notasGuias']
-  /** Além de compreensao/interesse/tempo, guarda relacao e percepcao (sem precisar alterar a tabela). */
-  conteudo: Avaliacao['conteudo'] & { relacao?: Avaliacao['relacao']; percepcao?: Avaliacao['percepcao'] }
+  /** Além de compreensao/interesse/tempo, guarda os textos de relacao e percepcao (sem precisar alterar a tabela). */
+  conteudo: Avaliacao['conteudo'] & { relacao?: string; percepcao?: string }
   recomendacao: number
   marcante: string
   sugestao: string | null
@@ -41,13 +41,24 @@ const paraLinha = (a: Avaliacao): Linha => ({
   guias: a.guias,
   nota_geral: a.notaGeral,
   notas_guias: a.notasGuias,
-  conteudo: { ...a.conteudo, relacao: a.relacao, percepcao: a.percepcao },
+  conteudo: { ...a.conteudo, relacao: a.relacao.trim(), percepcao: a.percepcao.trim() },
   recomendacao: a.recomendacao,
   marcante: a.marcante.trim(),
   sugestao: a.sugestao.trim() || null,
   aprender: a.aprender.trim() || null,
   enviado_em: a.enviadoEm,
 })
+
+/** Respostas de múltipla escolha de uma versão anterior do formulário, convertidas em texto. */
+const LEGADO: Record<string, string> = {
+  cotidiano: 'Fazem parte do meu dia a dia',
+  conhecia: 'Já conhecia, mas frequento pouco',
+  primeira: 'Foi a minha primeira vez',
+  sim: 'Sim',
+  parcialmente: 'Parcialmente',
+  nao: 'Não',
+}
+const texto = (v?: string) => (v ? LEGADO[v] ?? v : '')
 
 const deLinha = (l: Linha): Avaliacao => {
   const { relacao, percepcao, ...conteudo } = l.conteudo ?? ({} as Linha['conteudo'])
@@ -59,8 +70,8 @@ const deLinha = (l: Linha): Avaliacao => {
   notaGeral: l.nota_geral,
   notasGuias: l.notas_guias,
   conteudo,
-  relacao,
-  percepcao,
+  relacao: texto(relacao),
+  percepcao: texto(percepcao),
   recomendacao: l.recomendacao,
   marcante: l.marcante,
   sugestao: l.sugestao ?? '',

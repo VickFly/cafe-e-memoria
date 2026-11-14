@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react'
 import { ArrowLeft, Download, HardDrive, Loader2, LogOut, MessageSquareQuote, RefreshCw, Search, Users } from 'lucide-react'
-import { perguntaPercepcao, perguntaRelacao, rotulosNota, type Avaliacao } from '../../data/avaliacao'
+import { rotulosNota, type Avaliacao } from '../../data/avaliacao'
 import { tourConfig } from '../../config/tour'
 import { listarAvaliacoes, modo, supabase } from '../../lib/storage'
 import { baixarCSV, resumir } from '../../lib/relatorio'
@@ -122,7 +122,7 @@ function Dados() {
   const r = useMemo(() => resumir(lista ?? []), [lista])
   const filtradas = useMemo(() => {
     const q = busca.trim().toLowerCase()
-    return (lista ?? []).filter((a) => !q || [a.nome, a.marcante, a.sugestao, a.aprender].some((t) => t.toLowerCase().includes(q)))
+    return (lista ?? []).filter((a) => !q || [a.nome, a.marcante, a.sugestao, a.aprender, a.relacao, a.percepcao].some((t) => t.toLowerCase().includes(q)))
   }, [lista, busca])
 
   if (erro) return <div className="mt-8"><MensagemErro texto={erro} /><button className="btn-secundario mt-4" onClick={carregar}>Tentar novamente</button></div>
@@ -191,21 +191,10 @@ function Dados() {
                 ))}
               </ul>
               <h2 className="mt-6 text-xl font-bold">Você e os lugares</h2>
-              {r.responderamLugares < r.total && (
-                <p className="mt-1 text-xs text-cafe/80">{r.total - r.responderamLugares} avaliação(ões) anterior(es) a estas perguntas não têm resposta aqui.</p>
-              )}
-              <p className="mt-3 text-sm text-espresso">{perguntaRelacao}</p>
-              <ul className="mt-2 space-y-2">
-                {r.relacao.map((o) => (
-                  <li key={o.valor} className="grid grid-cols-[minmax(0,1fr)_5rem_2rem] items-center gap-3 text-sm">
-                    <span className="min-w-0 text-cafe">{o.label}</span>
-                    <div className="h-2.5 rounded-full bg-cafe/10"><div className="h-full rounded-full bg-oliva" style={{ width: `${r.responderamLugares ? (o.n / r.responderamLugares) * 100 : 0}%` }} /></div>
-                    <span className="tabular text-right font-semibold text-espresso">{o.n}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm text-espresso">{perguntaPercepcao}</p>
-              <p className="tabular mt-0.5 text-sm text-cafe">Sim {r.percepcao.sim} · Parcialmente {r.percepcao.parcialmente} · Não {r.percepcao.nao}</p>
+              <p className="tabular mt-1 text-sm text-cafe">
+                {r.responderamLugares} de {r.total} {r.total === 1 ? 'avaliação respondeu' : 'avaliações responderam'} às perguntas abertas.
+              </p>
+              <p className="mt-1 text-xs text-cafe/80">As respostas aparecem em cada comentário abaixo e no CSV.</p>
             </div>
           </div>
 
@@ -230,6 +219,22 @@ function Dados() {
                     <span className="ml-1">· recomendação {a.recomendacao}/10</span>
                   </p>
                   <p className="mt-3 break-words text-[0.95rem] text-tinta/90">“{a.marcante}”</p>
+                  {(a.relacao || a.percepcao) && (
+                    <dl className="mt-3 space-y-2 rounded-xl bg-papel/70 p-3 text-sm">
+                      {a.relacao && (
+                        <div>
+                          <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-cafe">Relação com os espaços</dt>
+                          <dd className="mt-0.5 whitespace-pre-line break-words text-tinta/90">{a.relacao}</dd>
+                        </div>
+                      )}
+                      {a.percepcao && (
+                        <div>
+                          <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-cafe">A percepção mudou?</dt>
+                          <dd className="mt-0.5 whitespace-pre-line break-words text-tinta/90">{a.percepcao}</dd>
+                        </div>
+                      )}
+                    </dl>
+                  )}
                   {a.sugestao && <p className="mt-2 break-words text-sm text-cafe"><strong>Sugestão:</strong> {a.sugestao}</p>}
                   {a.aprender && <p className="mt-1 break-words text-sm text-cafe"><strong>Gostaria de aprender:</strong> {a.aprender}</p>}
                 </li>

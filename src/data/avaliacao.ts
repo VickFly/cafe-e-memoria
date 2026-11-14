@@ -27,17 +27,16 @@ export const opcoesSPN: { valor: RespostaSPN; label: string }[] = [
   { valor: 'nao', label: 'Não' },
 ]
 
-/** Etapa "Você e os lugares" */
+/**
+ * Etapa "Você e os lugares": duas perguntas abertas (dissertativas).
+ * As dicas sugerem caminhos sem induzir a resposta.
+ */
 export const perguntaRelacao = 'Como você se relaciona com os espaços visitados?'
+export const ajudaRelacao = 'Você mora, trabalha ou estuda por perto? Já passava por esses lugares ou foi a primeira vez? Que lembranças eles trazem?'
 export const perguntaPercepcao = 'A sua percepção desses lugares mudou após a visita?'
-
-export type RelacaoEspacos = 'cotidiano' | 'conhecia' | 'primeira'
-
-export const opcoesRelacao: { valor: RelacaoEspacos; label: string; detalhe: string }[] = [
-  { valor: 'cotidiano', label: 'Fazem parte do meu dia a dia', detalhe: 'Passo, trabalho ou estudo por ali' },
-  { valor: 'conhecia', label: 'Já conhecia, mas frequento pouco', detalhe: 'Vou de vez em quando' },
-  { valor: 'primeira', label: 'Foi a minha primeira vez', detalhe: 'Conheci esses lugares no tour' },
-]
+export const ajudaPercepcao = 'Algum desses espaços passou a ter outro significado para você? Conte o que mudou, ou por que continuou igual.'
+export const LIMITE_LUGARES = 800
+export const MINIMO_LUGARES = 3
 
 export const LIMITE_MARCANTE = 1000
 export const LIMITE_OPCIONAL = 600
@@ -50,8 +49,8 @@ export type Rascunho = {
   notasGuias: Partial<Record<CriterioGuiaId, number>>
   conteudo: Partial<Record<PerguntaConteudoId, RespostaSPN>>
   recomendacao: number | null
-  relacao: RelacaoEspacos | null
-  percepcao: RespostaSPN | null
+  relacao: string
+  percepcao: string
   marcante: string
   sugestao: string
   aprender: string
@@ -60,9 +59,9 @@ export type Rascunho = {
 export type Avaliacao = Omit<Rascunho, 'notaGeral' | 'recomendacao' | 'notasGuias' | 'conteudo' | 'relacao' | 'percepcao'> & {
   notaGeral: number
   recomendacao: number
-  /** Opcionais: avaliações enviadas antes destas perguntas existirem não têm esses campos. */
-  relacao?: RelacaoEspacos
-  percepcao?: RespostaSPN
+  /** Vazios em avaliações enviadas antes destas perguntas existirem. */
+  relacao: string
+  percepcao: string
   notasGuias: Record<CriterioGuiaId, number>
   conteudo: Record<PerguntaConteudoId, RespostaSPN>
   guias: string[]
@@ -77,8 +76,8 @@ export const novoRascunho = (): Rascunho => ({
   notasGuias: {},
   conteudo: {},
   recomendacao: null,
-  relacao: null,
-  percepcao: null,
+  relacao: '',
+  percepcao: '',
   marcante: '',
   sugestao: '',
   aprender: '',

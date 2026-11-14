@@ -25,7 +25,14 @@ export default function App() {
     if (p.tela === 'fim' && !p.enviado) p.tela = 'tour'
     return p
   })
-  const [rascunho, setRascunhoState] = useState<Rascunho>(() => ({ ...novoRascunho(), ...lerLocal<Partial<Rascunho>>(CHAVE_RASCUNHO, {}) }))
+  const [rascunho, setRascunhoState] = useState<Rascunho>(() => {
+    const salvo = { ...novoRascunho(), ...lerLocal<Partial<Rascunho>>(CHAVE_RASCUNHO, {}) }
+    // versões anteriores guardavam códigos de múltipla escolha aqui; agora são respostas escritas
+    const codigos = ['cotidiano', 'conhecia', 'primeira', 'sim', 'parcialmente', 'nao']
+    if (typeof salvo.relacao !== 'string' || codigos.includes(salvo.relacao)) salvo.relacao = ''
+    if (typeof salvo.percepcao !== 'string' || codigos.includes(salvo.percepcao)) salvo.percepcao = ''
+    return salvo
+  })
   const [painel, setPainel] = useState(() => location.hash === ROTA_PAINEL)
 
   useEffect(() => { gravarLocal(CHAVE_PROGRESSO, progresso) }, [progresso])
