@@ -15,6 +15,9 @@ type Props = {
  * anel duplo, nome da estação em arco, ano ao centro e tinta levemente gasta.
  */
 export function Carimbo({ nome, ano, numero, tinta, vazio, className = '' }: Props) {
+  // o texto do anel precisa caber na volta (≈ 31 caracteres no tamanho padrão); nomes longos encolhem a letra
+  const arco = `${nome.toUpperCase()} · CAFÉ & MEMÓRIA · `
+  const escala = Math.min(1, 30 / arco.length)
   const id = useId().replace(/:/g, '')
   if (vazio) {
     return (
@@ -44,9 +47,9 @@ export function Carimbo({ nome, ano, numero, tinta, vazio, className = '' }: Pro
         <circle cx="60" cy="60" r="55" fill="none" strokeWidth="3.2" />
         <circle cx="60" cy="60" r="49" fill="none" strokeWidth="1.2" />
         <circle cx="60" cy="60" r="29" fill="none" strokeWidth="1.6" />
-        <text fontFamily="Inter, sans-serif" fontWeight="700" fontSize="9.6" letterSpacing="2.1" stroke="none">
+        <text fontFamily="Inter, sans-serif" fontWeight="700" fontSize={9.6 * escala} letterSpacing={2.1 * escala} stroke="none">
           <textPath href={`#arco-${id}`} startOffset="0">
-            {`${nome.toUpperCase()} · CAFÉ & MEMÓRIA · `}
+            {arco}
           </textPath>
         </text>
         <text x="60" y="58" textAnchor="middle" fontFamily="Fraunces, Georgia, serif" fontWeight="800" fontSize={ano.length > 4 ? 13 : 17} stroke="none">

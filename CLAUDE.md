@@ -1,6 +1,6 @@
 # CLAUDE.md — Café & Memória
 
-App web (SPA) que acompanha um tour guiado presencial pelo Centro Histórico de São Paulo, sobre a história do café na cidade. Trabalho acadêmico da USP; tour em 14/11/2026 (sábado), 13h–15h, saindo da Estação da Luz. Os participantes abrem o link no celular (via QR Code), percorrem a trilha de 4 paradas, avaliam o tour e desbloqueiam uma receita.
+App web (SPA) que acompanha um tour guiado presencial pelo Centro Histórico de São Paulo, sobre a história do café na cidade. Trabalho acadêmico da USP; tour em 14/11/2026 (sábado), 13h–15h, saindo da Estação da Luz. Os participantes abrem o link no celular (via QR Code), percorrem a trilha de 7 paradas, avaliam o tour e desbloqueiam uma receita.
 
 **Idioma:** todo texto de interface, comentários e mensagens de commit em **português do Brasil**.
 
@@ -22,7 +22,7 @@ Deploy: Vercel, publicado automaticamente a cada `git push` na `main`. Variávei
 | Quero mudar… | Arquivo |
 |---|---|
 | Guias, data, horário, ponto de encontro | `src/config/tour.ts` (fonte única — nunca escrever nomes de guias em componentes) |
-| Textos das 4 paradas, linha do tempo, temas da introdução, fontes | `src/data/historia.ts` |
+| Textos das 7 paradas, linha do tempo, temas da introdução, fontes | `src/data/historia.ts` |
 | Imagens e créditos | `src/data/images.ts` |
 | Perguntas, critérios, escalas e tipos do formulário | `src/data/avaliacao.ts` |
 | Receita final | `src/data/receita.ts` |
@@ -38,15 +38,17 @@ Componentes em `src/components/`:
 - `memorias/` — `Memorias` (Capítulo III: rolo de filme com destaques, filtros por parada, mesa de luz com revelação ao rolar, chave "Ver como em 1911"), `Projetor` (tela cheia, deslizar/setas, baixar), `postal.ts` (gera cartão-postal em canvas para baixar/compartilhar).
 - `recipe/Agradecimento` — tela final + receita desbloqueada + copiar.
 - `admin/Painel` — rota `#painel`: login, resumo, comentários, exportar CSV.
-- `brand/` — `Ilustracoes` (SVGs lineares), `Locomotiva` (locomotiva lateral, vista de cima e `TremChegando`), `Foto` (imagem com moldura e fallback), `Rodape`.
+- `brand/` — `Ilustracoes` (SVGs lineares, um por tipo de parada), `Carimbo`, `Locomotiva` (locomotiva lateral, vista de cima e `TremChegando`), `Foto` (imagem com moldura e fallback), `Rodape`.
 
 `App.tsx` controla as telas (`tour` → `form` → `fim`) e salva progresso (paradas exploradas e respostas dos desafios) e rascunho no localStorage (`cafe-memoria:progresso`, `cafe-memoria:rascunho`). Navegação entre etapas preserva respostas.
 
 ## Regras de conteúdo (importante — é um trabalho acadêmico)
 
 - **Não inventar fatos, datas, imagens ou relações entre edifícios.** Toda informação histórica nova precisa de fonte; adicione-a em `fontes` em `historia.ts`.
-- Manter a **ordem das paradas**: 1 Estação da Luz → 2 Rua XV de Novembro (antiga Rua da Imperatriz) → 3 Largo do Café e antiga Bolsa → 4 Theatro Municipal.
-- A parada 2 trata só da Rua XV de Novembro e do café de Maria Punga; a Rua Anchieta foi retirada do roteiro. Largo do Café, Palácio do Café e Bolsa de Valores **não são o mesmo lugar**.
+- Manter a **ordem das paradas**: 1 Estação da Luz → 2 Rua XV de Novembro e Rua Anchieta (Maria Punga) → 3 Tribunal de Justiça (Palácio da Justiça) → 4 Edifício Vista Alegre, Associação Comercial e Casa Palmares → 5 Praça Antônio Prado e B3 → 6 Largo do Café → 7 Theatro Municipal.
+- A Rua Anchieta voltou ao nome da parada 2, mas ainda não tem texto próprio: só acrescentar com o texto da equipe ou com fonte. Largo do Café, Palácio do Café e Bolsa de Valores **não são o mesmo lugar**; a história da Bolsa fica na parada 5.
+- Cada parada pode ter `curto` (nome para o mapa e o carimbo). Paradas sem foto atual no Commons usam fotos do próprio tour (`fotoDoTour` em `images.ts`).
+- O endereço exato da Associação Comercial não foi confirmado em fonte; não afirmar que fica na Rua Boa Vista.
 - Pontos ainda não confirmados em fonte: Bolsa no Palácio do Café em **1934**. Não reforçar sem fonte.
 - O mapa é **esquemático, sem escala**: posições em `esquema` (0–100) só indicam a sequência, não são coordenadas.
 - Fotos do tour: sem EXIF/GPS; para retirar uma foto a pedido de alguém, apagar a entrada em `memorias.ts` e os dois arquivos `.webp`. Só classificar uma foto numa parada se o lugar for inequívoco; na dúvida, `pelo-caminho`.

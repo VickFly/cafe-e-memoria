@@ -26,14 +26,44 @@ export const extras: Record<string, Extra> = {
       explicacao: 'Três: era a quantidade de xícaras que o bule dela rendia. Quem chegasse antes precisava esperar mais dois clientes.',
     },
   },
+  'tribunal-de-justica': {
+    carimbo: '1920',
+    tinta: '#4A5536',
+    quiz: {
+      pergunta: 'Qual escritório projetou o Palácio da Justiça?',
+      opcoes: ['O de Lucjan Korngold', 'O de Ramos de Azevedo', 'O de Washington Luís'],
+      correta: 1,
+      explicacao: 'O escritório de Ramos de Azevedo, o mesmo do Theatro Municipal. Washington Luís, então secretário da Justiça, determinou a construção em 1911; a pedra fundamental foi assentada em 1920.',
+    },
+  },
+  'edificio-vista-alegre': {
+    carimbo: '1894',
+    tinta: '#7A4A2E',
+    quiz: {
+      pergunta: 'Em que momento foi fundada a Associação Comercial de São Paulo, em 1894?',
+      opcoes: ['Durante a expansão da economia cafeeira', 'Logo depois da crise de 1929', 'Na inauguração do Theatro Municipal'],
+      correta: 0,
+      explicacao: 'Durante a expansão do café, quando as oportunidades de negócio atraíam empreendedores locais e estrangeiros. A fundação foi em 7 de dezembro de 1894.',
+    },
+  },
+  'praca-antonio-prado': {
+    carimbo: '1909',
+    tinta: '#5B3928',
+    quiz: {
+      pergunta: 'O que existia aqui antes de o lugar se chamar Praça Antônio Prado?',
+      opcoes: ['O Largo do Café', 'O Largo do Rosário, com a igreja da irmandade dos homens pretos', 'O Pátio do Colégio'],
+      correta: 1,
+      explicacao: 'O Largo do Rosário. A igreja foi derrubada para alargar a Rua XV, e a irmandade, depois de lutar e conseguir indenização, ergueu um novo templo no Largo do Paissandu.',
+    },
+  },
   'largo-do-cafe': {
-    carimbo: '1890',
+    carimbo: 'séc. XIX',
     tinta: '#8A5532',
     quiz: {
-      pergunta: 'Qual instituição, fundada em 1890, é considerada o embrião da atual B3?',
-      opcoes: ['Bolsa Oficial de Valores', 'Bolsa Livre', 'Palácio do Café'],
+      pergunta: 'Quem se reunia no Largo do Café para fazer negócios?',
+      opcoes: ['Juízes e advogados do Tribunal', 'Comerciantes, corretores, comissários e exportadores', 'Imigrantes recém-chegados pela ferrovia'],
       correta: 1,
-      explicacao: 'A Bolsa Livre, de 1890. O nome Bolsa Oficial de Valores de São Paulo só surgiu em 1935, e o Palácio do Café é um edifício, não uma instituição.',
+      explicacao: 'Comerciantes, corretores, comissários e representantes de exportadores. Os lotes chegavam do interior, eram negociados ali e seguiam para o porto, como numa bolsa informal.',
     },
   },
   'theatro-municipal': {

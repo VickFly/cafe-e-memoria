@@ -194,4 +194,54 @@ export function CopoGelado({ className, title }: P) {
   )
 }
 
-export const ilustracaoPorTipo = { trem: Trem, rua: Rua, saca: Saca, theatro: Theatro }
+/** Palácio da Justiça: fachada clássica com colunas, cúpula e a balança. */
+export function Justica({ className, title }: P) {
+  return (
+    <svg viewBox="0 0 200 110" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" {...svgProps(title)}>
+      <path d="M6 100h188" />
+      <path d="M30 100V58h140v42" /><path d="M24 58h152" /><path d="M24 92h152" />
+      <path d="M40 58l60-22 60 22" />
+      <path d="M78 44c0-16 10-24 22-24s22 8 22 24" /><path d="M100 20v-8" />
+      {[44, 60, 76, 124, 140, 156].map((x) => <path key={x} d={`M${x} 64v26`} />)}
+      <path d="M90 92V72a10 10 0 0 1 20 0v20" />
+      <path d="M100 52v-6M88 50h24" strokeWidth="1.4" />
+      <path d="M88 50l-4 6h8zM112 50l-4 6h8z" strokeWidth="1.4" />
+      <path d="M30 100v-4h140v4" strokeWidth="1.4" />
+    </svg>
+  )
+}
+
+/** Rua Boa Vista: um prédio eclético de esquina ao lado de um arranha-céu de planta triangular. */
+export function Predio({ className, title }: P) {
+  return (
+    <svg viewBox="0 0 200 110" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" {...svgProps(title)}>
+      <path d="M6 100h188" />
+      <path d="M18 100V48h56v52" /><path d="M14 48h64" /><path d="M20 40h52v8" />
+      {[26, 42, 58].map((x) => [56, 72].map((y) => <rect key={`${x}${y}`} x={x} y={y} width="9" height="11" rx="4.5" />))}
+      <path d="M38 100V88a8 8 0 0 1 16 0v12" />
+      <path d="M96 100V18h38l14 10v72" /><path d="M134 18v82" strokeWidth="1.4" />
+      {[26, 36, 46, 56, 66, 76].map((y) => <path key={y} d={`M102 ${y}h26M140 ${y + 4}h4`} strokeWidth="1.4" />)}
+      <path d="M100 100V88h30v12" />
+      <path d="M160 100V60h26v40" />
+      {[68, 80].map((y) => <path key={y} d={`M166 ${y}h14`} strokeWidth="1.4" />)}
+    </svg>
+  )
+}
+
+/** Praça Antônio Prado: o relógio de rua, a fachada de um banco e uma árvore. */
+export function Praca({ className, title }: P) {
+  return (
+    <svg viewBox="0 0 200 110" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" {...svgProps(title)}>
+      <path d="M6 100h188" />
+      <path d="M44 100V40" /><path d="M38 100h12" />
+      <circle cx="44" cy="28" r="12" /><path d="M44 21v7l5 3" strokeWidth="1.6" />
+      <path d="M84 100V36h92v64" /><path d="M78 36h104" /><path d="M86 28h88v8" />
+      {[96, 116, 144, 164].map((x) => <path key={x} d={`M${x} 44v40`} />)}
+      <path d="M122 100V74a8 8 0 0 1 16 0v26" />
+      <path d="M84 88h92" strokeWidth="1.4" />
+      <path d="M12 100V78" /><path d="M12 80c-10 0-12-14-2-18 0-10 14-10 14 0 8 2 8 16-2 18z" strokeWidth="1.6" />
+    </svg>
+  )
+}
+
+export const ilustracaoPorTipo = { trem: Trem, rua: Rua, saca: Saca, theatro: Theatro, justica: Justica, predio: Predio, praca: Praca }

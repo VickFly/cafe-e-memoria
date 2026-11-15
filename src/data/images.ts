@@ -55,3 +55,19 @@ export const imagens = {
 
 /** Categoria do Commons com fotos do Largo do Café. */
 export const largoDoCafeCommons = 'https://commons.wikimedia.org/wiki/Category:Largo_do_Caf%C3%A9'
+
+/** Fotos feitas pela equipe no próprio tour (14/11/2026), usadas como "Hoje" nas paradas sem foto atual no Commons. */
+const doTour = (arquivo: string, legenda: string): Imagem => ({
+  src: `/memorias/g/${arquivo}`,
+  reserva: `/memorias/p/${arquivo}`,
+  pagina: '#memorias',
+  legenda,
+  credito: 'Foto: equipe do tour Café & Memória, 14/11/2026',
+  tipo: 'atual',
+})
+
+export const fotoDoTour = {
+  tribunal: doTour('57.webp', 'Palácio da Justiça, com a inscrição do Tribunal na fachada, no dia do tour'),
+  associacao: doTour('62.webp', 'Fachada da Associação Comercial de São Paulo no dia do tour'),
+  b3: doTour('10.webp', 'Entrada da Arena B3 no dia do tour'),
+} satisfies Record<string, Imagem>

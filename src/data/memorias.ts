@@ -9,7 +9,15 @@
  * Para tirar uma foto do site, apague a linha dela (e, se quiser, os dois arquivos .webp).
  * `destaque: true` coloca a foto no rolo de filme do topo.
  */
-export type ParadaFoto = 'estacao-da-luz' | 'rua-xv-de-novembro' | 'largo-do-cafe' | 'theatro-municipal' | 'pelo-caminho'
+export type ParadaFoto =
+  | 'estacao-da-luz'
+  | 'rua-xv-de-novembro'
+  | 'tribunal-de-justica'
+  | 'edificio-vista-alegre'
+  | 'praca-antonio-prado'
+  | 'largo-do-cafe'
+  | 'theatro-municipal'
+  | 'pelo-caminho'
 
 export type FotoTour = { n: number; arquivo: string; w: number; h: number; parada: ParadaFoto; destaque?: boolean }
 
@@ -18,6 +26,9 @@ export const dataDoTour = 'Sábado, 14 de novembro de 2026'
 export const nomesParadas: Record<ParadaFoto, string> = {
   'estacao-da-luz': 'Estação da Luz',
   'rua-xv-de-novembro': 'Rua XV de Novembro',
+  'tribunal-de-justica': 'Tribunal de Justiça',
+  'edificio-vista-alegre': 'Vista Alegre e Assoc. Comercial',
+  'praca-antonio-prado': 'Praça Antônio Prado e B3',
   'largo-do-cafe': 'Largo do Café',
   'theatro-municipal': 'Theatro Municipal',
   'pelo-caminho': 'Pelo caminho',
@@ -35,8 +46,8 @@ export const fotosTour: FotoTour[] = [
   { n: 7, arquivo: '07.webp', w: 1600, h: 1200, parada: 'estacao-da-luz' },
   { n: 8, arquivo: '08.webp', w: 1280, h: 960, parada: 'rua-xv-de-novembro', destaque: true },
   { n: 9, arquivo: '09.webp', w: 1280, h: 960, parada: 'rua-xv-de-novembro' },
-  { n: 10, arquivo: '10.webp', w: 1600, h: 1200, parada: 'rua-xv-de-novembro' },
-  { n: 11, arquivo: '11.webp', w: 1600, h: 1200, parada: 'rua-xv-de-novembro' },
+  { n: 10, arquivo: '10.webp', w: 1600, h: 1200, parada: 'praca-antonio-prado' },
+  { n: 11, arquivo: '11.webp', w: 1600, h: 1200, parada: 'praca-antonio-prado' },
   { n: 12, arquivo: '12.webp', w: 1200, h: 1600, parada: 'largo-do-cafe', destaque: true },
   { n: 13, arquivo: '13.webp', w: 1200, h: 1600, parada: 'largo-do-cafe' },
   { n: 14, arquivo: '14.webp', w: 960, h: 1280, parada: 'theatro-municipal', destaque: true },
@@ -82,12 +93,12 @@ export const fotosTour: FotoTour[] = [
   { n: 54, arquivo: '54.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
   { n: 55, arquivo: '55.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
   { n: 56, arquivo: '56.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
-  { n: 57, arquivo: '57.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
-  { n: 58, arquivo: '58.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
+  { n: 57, arquivo: '57.webp', w: 1200, h: 1600, parada: 'tribunal-de-justica' },
+  { n: 58, arquivo: '58.webp', w: 1600, h: 1200, parada: 'tribunal-de-justica' },
   { n: 59, arquivo: '59.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
-  { n: 60, arquivo: '60.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
+  { n: 60, arquivo: '60.webp', w: 1200, h: 1600, parada: 'tribunal-de-justica' },
   { n: 61, arquivo: '61.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
-  { n: 62, arquivo: '62.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
+  { n: 62, arquivo: '62.webp', w: 1600, h: 1200, parada: 'edificio-vista-alegre' },
   { n: 63, arquivo: '63.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
   { n: 64, arquivo: '64.webp', w: 1200, h: 1600, parada: 'pelo-caminho' },
   { n: 65, arquivo: '65.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
@@ -101,7 +112,7 @@ export const fotosTour: FotoTour[] = [
   { n: 73, arquivo: '73.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
   { n: 74, arquivo: '74.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
   { n: 75, arquivo: '75.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
-  { n: 76, arquivo: '76.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
+  { n: 76, arquivo: '76.webp', w: 1600, h: 1200, parada: 'praca-antonio-prado' },
   { n: 77, arquivo: '77.webp', w: 1600, h: 1200, parada: 'pelo-caminho', destaque: true },
   { n: 78, arquivo: '78.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },
   { n: 79, arquivo: '79.webp', w: 1600, h: 1200, parada: 'pelo-caminho' },

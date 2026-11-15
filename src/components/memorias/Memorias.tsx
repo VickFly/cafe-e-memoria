@@ -3,7 +3,7 @@ import { Camera, Expand, Film } from 'lucide-react'
 import { dataDoTour, fotosTour, nomesParadas, urlFoto, type FotoTour, type ParadaFoto } from '../../data/memorias'
 import { ChaveEpoca, Perfuracao, Projetor } from './Projetor'
 
-const filtros: ('todas' | ParadaFoto)[] = ['todas', 'estacao-da-luz', 'rua-xv-de-novembro', 'largo-do-cafe', 'theatro-municipal', 'pelo-caminho']
+const filtros: ('todas' | ParadaFoto)[] = ['todas', 'estacao-da-luz', 'rua-xv-de-novembro', 'tribunal-de-justica', 'edificio-vista-alegre', 'praca-antonio-prado', 'largo-do-cafe', 'theatro-municipal', 'pelo-caminho']
 const giro = (n: number) => ((n * 37) % 7) - 3 // de -3 a 3 graus, estável por foto
 
 /**
@@ -69,11 +69,15 @@ export function Memorias() {
         >
           {destaques.map((f, i) => (
             <li key={f.arquivo} className="w-[72%] max-w-[360px] shrink-0 snap-center sm:w-[340px]">
-              <button type="button" onClick={() => setAberta({ lista: destaques, i })} className="group block w-full text-left" aria-label={`Abrir destaque ${i + 1}`}>
+              <button type="button" onClick={() => setAberta({ lista: destaques, i })} className="group block w-full text-left" aria-label={`Abrir destaque ${i + 1}: ${nomesParadas[f.parada]}`}>
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[3px] bg-[#2a1d16]">
                   <img src={urlFoto(f, 'p')} alt="" loading={i < 3 ? 'eager' : 'lazy'} decoding="async" width={f.w} height={f.h} className={`h-full w-full object-cover transition duration-500 group-hover:scale-[1.04] ${sepia ? 'filtro-1911' : ''}`} />
                   {sepia && <div className="grao-filme pointer-events-none absolute inset-0" aria-hidden="true" />}
                 </div>
+                <span className="mt-1.5 flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#d9a441]">
+                  <span>▸ {String(i + 1).padStart(2, '0')}A</span>
+                  <span className="truncate pl-2">Café &amp; Memória 400</span>
+                </span>
               </button>
             </li>
           ))}
@@ -113,9 +117,9 @@ export function Memorias() {
               <button
                 type="button"
                 onClick={() => setAberta({ lista: visiveis, i })}
-                className="group block w-full rounded-[3px] bg-[#f6efe2] p-1.5 text-left shadow-[0_14px_24px_-14px_rgba(0,0,0,.9)] transition [transform:rotate(var(--giro))] hover:[transform:translateY(-4px)] focus-visible:[transform:none] sm:p-2"
+                className="group block w-full rounded-[3px] bg-[#f6efe2] p-1.5 pb-2 text-left shadow-[0_14px_24px_-14px_rgba(0,0,0,.9)] transition [transform:rotate(var(--giro))] hover:[transform:translateY(-4px)] focus-visible:[transform:none] sm:p-2 sm:pb-2.5"
                 style={{ '--giro': `${giro(f.n) * 0.5}deg` } as CSSProperties}
-                aria-label={`Abrir foto ${f.n}`}
+                aria-label={`Abrir fotograma ${f.n}: ${nomesParadas[f.parada]}`}
               >
                 <div className="relative overflow-hidden bg-[#2a1d16]" style={{ aspectRatio: `${f.w} / ${f.h}` }}>
                   <img src={urlFoto(f, 'p')} alt="" loading="lazy" decoding="async" width={f.w} height={f.h} className={`revelacao h-full w-full object-cover ${sepia ? 'filtro-1911' : ''}`} />
@@ -124,6 +128,10 @@ export function Memorias() {
                     <Expand className="h-4 w-4" />
                   </span>
                 </div>
+                <span className="mt-1.5 flex items-baseline justify-between gap-2 px-0.5">
+                  <span className="truncate font-display text-[0.86rem] italic text-cafe">{nomesParadas[f.parada]}</span>
+                  <span className="tabular shrink-0 text-[0.66rem] font-semibold tracking-[0.12em] text-cafe/80">Nº {String(f.n).padStart(2, '0')}</span>
+                </span>
               </button>
             </li>
           ))}

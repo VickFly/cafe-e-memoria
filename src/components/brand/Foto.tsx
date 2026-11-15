@@ -17,6 +17,7 @@ export function Foto({ imagem, className = '', proporcao = '4 / 3', prioridade, 
   const [estado, setEstado] = useState<'carregando' | 'ok' | 'erro'>('carregando')
   // tenta primeiro a cópia do próprio site; se faltar, usa o Commons; se falhar de novo, mostra a moldura
   const [usarReserva, setUsarReserva] = useState(false)
+  const externa = imagem.pagina.startsWith('http')
 
   return (
     <figure className={`min-w-0 ${className}`}>
@@ -47,9 +48,11 @@ export function Foto({ imagem, className = '', proporcao = '4 / 3', prioridade, 
             <span className="flex items-center gap-1.5 text-sm font-medium">
               <ImageOff className="h-4 w-4" aria-hidden="true" /> Imagem indisponível agora
             </span>
-            <a href={imagem.pagina} target="_blank" rel="noreferrer" className="text-xs underline underline-offset-2">
-              Ver no Wikimedia Commons
-            </a>
+            {externa && (
+              <a href={imagem.pagina} target="_blank" rel="noreferrer" className="text-xs underline underline-offset-2">
+                Ver no Wikimedia Commons
+              </a>
+            )}
           </div>
         )}
         <span className="pointer-events-none absolute left-2 top-2 rounded-full bg-espresso/80 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-creme">
@@ -59,9 +62,13 @@ export function Foto({ imagem, className = '', proporcao = '4 / 3', prioridade, 
       {!semLegenda && (
         <figcaption className="mt-2 text-[0.78rem] leading-snug text-cafe/80">
           <span className="font-medium text-cafe">{imagem.legenda}.</span>{' '}
-          <a href={imagem.pagina} target="_blank" rel="noreferrer" className="underline decoration-cafe/30 underline-offset-2 hover:decoration-cafe">
-            {imagem.credito}
-          </a>
+          {externa ? (
+            <a href={imagem.pagina} target="_blank" rel="noreferrer" className="underline decoration-cafe/30 underline-offset-2 hover:decoration-cafe">
+              {imagem.credito}
+            </a>
+          ) : (
+            imagem.credito
+          )}
         </figcaption>
       )}
     </figure>

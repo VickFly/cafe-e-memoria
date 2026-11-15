@@ -32,7 +32,7 @@ export function Inicio({ onComecar, onFotos }: { onComecar: () => void; onFotos:
           </p>
           <p className="mt-5 max-w-[56ch] text-[1.02rem] text-tinta/85">
             Entre 1867 e 1922, o dinheiro do café trouxe trilhos, imigrantes, bancos e teatros para uma cidade que ainda era
-            pequena. Vamos percorrer <strong className="font-semibold text-espresso">quatro pontos históricos</strong> que
+            pequena. Vamos percorrer <strong className="font-semibold text-espresso">sete pontos históricos</strong> que
             contam essa transformação, do primeiro apito do trem ao palco do modernismo.
           </p>
 
@@ -40,7 +40,7 @@ export function Inicio({ onComecar, onFotos }: { onComecar: () => void; onFotos:
             <button type="button" className="btn-primario px-8 text-[0.95rem] tracking-[0.12em]" onClick={onComecar}>
               COMEÇAR EXPERIÊNCIA <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </button>
-            <span className="text-sm text-cafe/80">4 paradas · cerca de 2 horas</span>
+            <span className="text-sm text-cafe/80">7 paradas · cerca de 2 horas</span>
           </div>
           <button type="button" onClick={onFotos} className="mt-5 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-cafe/30 bg-creme/70 py-1.5 pl-1.5 pr-4 text-sm font-semibold text-cafe hover:border-cafe hover:bg-creme">
             <span className="grid h-8 w-8 place-items-center rounded-full bg-espresso text-creme"><Camera className="h-4 w-4" aria-hidden="true" /></span>

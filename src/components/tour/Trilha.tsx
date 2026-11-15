@@ -39,7 +39,7 @@ export function Trilha({ exploradas, onExplorar, onAvaliar, respostas, onRespond
       <div className="gutter mx-auto max-w-6xl">
         <p className="eyebrow">Capítulo II · O percurso</p>
         <h2 id="titulo-trilha" className="mt-3 text-[clamp(2rem,7vw,3.2rem)] font-bold leading-[1.05]">
-          Quatro paradas, uma mesma história
+          Sete paradas, uma mesma história
         </h2>
         <p className="mt-4 max-w-[60ch] text-tinta/85">
           Siga a ordem do tour. Toque em <strong className="font-semibold text-espresso">Explorar parada</strong> para ver
@@ -188,14 +188,14 @@ export function Trilha({ exploradas, onExplorar, onAvaliar, respostas, onRespond
             <p className={`text-[0.72rem] font-semibold uppercase tracking-[0.18em] ${completa ? 'text-ouro' : 'text-caramelo-texto'}`}>
               Seus carimbos · <span className="tabular">{paradas.filter((p) => respostas[p.slug] !== undefined).length} de {paradas.length}</span>
             </p>
-            <ul className="mx-auto mt-3 grid max-w-[300px] grid-cols-2 gap-3 min-[520px]:max-w-none min-[520px]:grid-cols-4">
+            <ul className="mx-auto mt-3 flex max-w-[620px] flex-wrap justify-center gap-3 [&>li]:w-[calc((100%-1.5rem)/3)] min-[520px]:[&>li]:w-[calc((100%-3rem)/4.2)]">
               {paradas.map((p) => {
                 const ex = extras[p.slug]
                 const tem = respostas[p.slug] !== undefined
                 return (
                   <li key={p.slug}>
                     <button type="button" onClick={() => abrir(p.numero)} className={`w-full rounded-full ${completa && !tem ? 'opacity-70' : ''} ${completa ? 'rounded-full bg-creme p-0.5' : ''}`} aria-label={`${p.nome}: ${tem ? 'carimbada' : 'sem carimbo ainda'}. Abrir parada`}>
-                      <Carimbo vazio={!tem} nome={p.nome} ano={ex.carimbo} numero={p.numero} tinta={ex.tinta} className="h-auto w-full" />
+                      <Carimbo vazio={!tem} nome={p.curto ?? p.nome} ano={ex.carimbo} numero={p.numero} tinta={ex.tinta} className="h-auto w-full" />
                     </button>
                   </li>
                 )

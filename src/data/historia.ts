@@ -1,9 +1,11 @@
-import { imagens, largoDoCafeCommons, type Imagem } from './images'
+import { fotoDoTour, imagens, largoDoCafeCommons, type Imagem } from './images'
 
 export type Parada = {
   numero: number
   slug: string
   nome: string
+  /** Nome curto para o mapa e o carimbo. */
+  curto?: string
   subtitulo?: string
   local: string
   resumo: string
@@ -13,7 +15,7 @@ export type Parada = {
   atencao?: string
   fotos: { historica?: Imagem; atual?: Imagem; extra?: Imagem }
   semFotoNota?: { texto: string; link: string }
-  ilustracao: 'trem' | 'rua' | 'saca' | 'theatro'
+  ilustracao: 'trem' | 'rua' | 'saca' | 'theatro' | 'justica' | 'predio' | 'praca'
   /** Posição no esquema ilustrativo (0–100). Não são coordenadas reais. */
   esquema: { x: number; y: number }
 }
@@ -43,13 +45,14 @@ export const paradas: Parada[] = [
       'A estação se tornou um dos grandes símbolos da modernização de São Paulo durante o auge da economia cafeeira.',
     fotos: { historica: imagens.luzHistorica, atual: imagens.luzAtual },
     ilustracao: 'trem',
-    esquema: { x: 50, y: 12 },
+    esquema: { x: 50, y: 4 },
   },
   {
     numero: 2,
     slug: 'rua-xv-de-novembro',
     nome: 'Rua XV de Novembro',
-    subtitulo: 'a antiga Rua da Imperatriz',
+    curto: 'Rua XV',
+    subtitulo: 'e Rua Anchieta · o café de Maria Punga',
     local: 'Núcleo histórico, próximo ao Pátio do Colégio',
     resumo:
       'Aqui teria surgido o primeiro ponto de café da cidade, na casa de Maria Punga, uma mulher negra liberta que a história quase apagou.',
@@ -71,12 +74,98 @@ export const paradas: Parada[] = [
       'A Rua XV de Novembro foi uma das vias comerciais mais importantes da cidade. No início do século XX reunia cafés, lojas, joalherias e bondes elétricos.',
     fotos: { historica: imagens.ruaXvHistorica, atual: imagens.patioAtual, extra: imagens.ruaXv1920 },
     ilustracao: 'rua',
-    esquema: { x: 72, y: 46 },
+    esquema: { x: 74, y: 19 },
   },
   {
     numero: 3,
+    slug: 'tribunal-de-justica',
+    nome: 'Tribunal de Justiça',
+    curto: 'Tribunal de Justiça',
+    subtitulo: 'o Palácio da Justiça de São Paulo',
+    local: 'Praça da Sé, Centro',
+    resumo:
+      'Um palácio desenhado pelo mesmo escritório do Theatro Municipal, que levou mais de duas décadas entre a ordem de construir e a inauguração completa.',
+    contexto: [
+      'O Palácio da Justiça, sede do Tribunal de Justiça do Estado de São Paulo, fica na Praça da Sé. A construção foi determinada em 1911 por Washington Luís, então secretário da Justiça, e o projeto saiu do escritório de Ramos de Azevedo, o mesmo responsável pelo Theatro Municipal.',
+      'A obra foi longa. Só a desocupação, a expropriação e a demolição do terreno levaram nove anos, e a pedra fundamental foi assentada em 24 de fevereiro de 1920. Enquanto isso, o Tribunal funcionou em outro endereço, na Rua Brigadeiro Tobias. Parte do Fórum Cível passou a ocupar o prédio em 1926, e o Tribunal do Júri, em 1927.',
+      'A inauguração parcial aconteceu em 2 de janeiro de 1933. A segunda inauguração, com os andares superiores e o Salão Nobre concluídos, veio em 25 de janeiro de 1942, no 388º aniversário da cidade.',
+      'O estilo é eclético, alternando entre o neoclássico e o barroco, com inspiração nos Palácios da Justiça de Bruxelas e de Roma. O edifício usa estruturas metálicas, mármore, bronze, alabastro e granito vermelho de Itu, e foi tombado pelo Condephaat em 1981.',
+    ],
+    destaques: [
+      'Construção determinada em 1911',
+      'Projeto do escritório de Ramos de Azevedo',
+      'Pedra fundamental em 24 de fevereiro de 1920',
+      'Inaugurado em 1933 e concluído em 1942',
+      'Inspiração nos Palácios da Justiça de Bruxelas e de Roma',
+    ],
+    curiosidade:
+      'Domiciano Rossi, também ligado ao projeto do Theatro Municipal, desenhou as bases e os capitéis de bronze das colunas do Salão dos Passos Perdidos.',
+    fotos: { atual: fotoDoTour.tribunal },
+    ilustracao: 'justica',
+    esquema: { x: 30, y: 34 },
+  },
+  {
+    numero: 4,
+    slug: 'edificio-vista-alegre',
+    nome: 'Edifício Vista Alegre',
+    curto: 'Vista Alegre',
+    subtitulo: 'Associação Comercial e Casa Palmares',
+    local: 'Rua Boa Vista e arredores, Centro Histórico',
+    resumo:
+      'Três endereços de épocas diferentes mostram como o comércio e os bancos fizeram do Centro Velho o coração financeiro da cidade.',
+    contexto: [
+      'A Associação Comercial de São Paulo foi fundada em 7 de dezembro de 1894 pelo empresário Antônio Proost Rodovalho, num momento em que a economia cafeeira estava em expansão e as oportunidades de negócio atraíam empreendedores locais e estrangeiros. Até hoje a entidade representa o empresariado paulistano.',
+      'O Edifício Casa Palmares, na Rua Boa Vista, 133, esquina com a Rua Três de Dezembro, foi projetado em 1922 pelo escritório de Ramos de Azevedo para a Condessa Álvares Penteado. Em estilo eclético, foi um dos principais edifícios bancários de sua época, quando o Centro Velho era o centro financeiro da cidade. É tombado pelo Conpresp desde 2007.',
+      'O Edifício Vista Alegre, na confluência da Rua Boa Vista com a Rua General Carneiro, junto ao Viaduto Boa Vista, é de outra geração. Projetado por Lucjan Korngold e Francisco Beck, teve a licença pedida em 1944 e ficou pronto em 1948; em 1946 foi comprado pelo Banco Continental de São Paulo. Reunia lojas, agência bancária e escritórios em 18 pavimentos, sobre um terreno triangular, e tinha no subsolo um abrigo antiaéreo para 275 pessoas.',
+      'Lado a lado, os três mostram a mesma região sendo reconstruída ao longo de meio século: uma entidade nascida durante a expansão do café, um edifício bancário eclético e um arranha-céu moderno.',
+    ],
+    destaques: [
+      'Associação Comercial fundada em 1894',
+      'Casa Palmares, projeto de 1922 do escritório de Ramos de Azevedo',
+      'Edifício Vista Alegre, concluído em 1948',
+      'O Centro Velho como centro financeiro da cidade',
+      'Do ecletismo à arquitetura moderna na mesma rua',
+    ],
+    curiosidade:
+      'O Vista Alegre ocupa quase todo o seu lote triangular, de cerca de 239 m², e chega a 65 metros de altura.',
+    fotos: { atual: fotoDoTour.associacao },
+    ilustracao: 'predio',
+    esquema: { x: 70, y: 50 },
+  },
+  {
+    numero: 5,
+    slug: 'praca-antonio-prado',
+    nome: 'Praça Antônio Prado',
+    curto: 'Praça Antônio Prado',
+    subtitulo: 'e a B3',
+    local: 'Centro Histórico, junto à Rua XV de Novembro',
+    resumo:
+      'Antes de levar o nome de um cafeicultor e prefeito, a praça era o Largo do Rosário, onde ficava a igreja da irmandade dos homens pretos.',
+    contexto: [
+      'Até o início do século XX, este lugar era o Largo do Rosário. Ali ficava o primeiro templo da Irmandade do Rosário dos Homens Pretos, presente na cidade desde meados do século XVIII, na junção da antiga Rua 15 de Novembro com as ruas São Bento e Direita.',
+      'Para melhorar a circulação na Rua XV de Novembro, a Prefeitura derrubou a igreja. Os irmãos e irmãs do Rosário lutaram contra a ordem de retirada do templo e conseguiram uma indenização do poder municipal, com a qual ergueram uma nova igreja no antigo Tanque da Zunega, hoje Largo do Paissandu. A obra começou em 1903 e o templo foi inaugurado em 1906.',
+      'O largo foi ampliado e, em 1909, passou a se chamar Praça Antônio Prado. Antônio da Silva Prado foi prefeito de 1899 a 1911. Sua família expandiu os cafezais pelo oeste paulista, e a Fazenda São Martinho chegou a ser a maior produtora de café do mundo. Ele fundou a exportadora Prado Chaves e, com outros cafeicultores, a Companhia Paulista de Estrada de Ferro, em 1868, para escoar a produção das fazendas.',
+      'A história da Bolsa de Valores é institucional e passou por vários endereços: a Bolsa Livre foi fundada em 23 de agosto de 1890, a Bolsa de Fundos Públicos em 1895 e, em 1935, surgiu o nome Bolsa Oficial de Valores de São Paulo. Bovespa, BM&FBovespa e, desde 2017, B3 são etapas posteriores. Hoje a B3 ocupa prédios na própria praça, no número 48, e na Rua XV de Novembro, 275, onde ficava o espaço dos pregões viva-voz desde 1980 e hoje funciona o museu MUB3.',
+      'No fim de 2016, a praça recebeu o primeiro monumento da cidade a Zumbi dos Palmares.',
+    ],
+    destaques: [
+      'O antigo Largo do Rosário e a igreja dos homens pretos',
+      'A irmandade resistiu e reergueu o templo no Paissandu',
+      'Praça Antônio Prado desde 1909',
+      'Bolsa Livre, de 1890, embrião da atual B3',
+      'Primeiro monumento da cidade a Zumbi dos Palmares, em 2016',
+    ],
+    curiosidade:
+      'Como prefeito, Antônio Prado alargou ruas do Centro, como a Quinze de Novembro, e iniciou a construção do Theatro Municipal, inaugurado oito meses depois de ele deixar o cargo.',
+    fotos: { atual: fotoDoTour.b3 },
+    ilustracao: 'praca',
+    esquema: { x: 28, y: 65 },
+  },
+  {
+    numero: 6,
     slug: 'largo-do-cafe',
     nome: 'Largo do Café',
+    curto: 'Largo do Café',
     subtitulo: 'e a antiga Bolsa de Valores',
     local: 'Entre as ruas São Bento, Álvares Penteado e do Comércio',
     resumo:
@@ -85,14 +174,13 @@ export const paradas: Parada[] = [
       'O Largo do Café foi um dos espaços mais representativos da comercialização do café em São Paulo, entre o fim do século XIX e o começo do século XX.',
       'Ali se reuniam comerciantes, corretores, comissários e representantes de exportadores. Os lotes chegavam do interior, eram negociados e depois seguiam para o porto.',
       'Era um lugar de circulação de informações, negócios e decisões econômicas, uma espécie de bolsa informal.',
-      'A história da Bolsa de Valores é institucional e passou por outros endereços: a Bolsa Livre foi fundada em 23 de agosto de 1890, a Bolsa de Fundos Públicos em 1895 e, em 1935, surgiu o nome Bolsa Oficial de Valores de São Paulo. Bovespa, BM&FBovespa e, desde 2017, B3 são etapas posteriores.',
     ],
     destaques: [
       'Comercialização do café do interior paulista',
       'Negociações e atividades dos corretores',
       'Relação entre o comércio do café e o mercado financeiro',
       'Desenvolvimento das instituições financeiras paulistanas',
-      'Bolsa Livre, de 1890, embrião da atual B3',
+      'Um espaço público que funcionava como bolsa informal',
     ],
     curiosidade:
       'Em 1934 a Bolsa de Valores de São Paulo instalou-se no Palácio do Café, no Pátio do Colégio. No ano seguinte passou a se chamar Bolsa Oficial de Valores de São Paulo.',
@@ -105,12 +193,13 @@ export const paradas: Parada[] = [
       link: largoDoCafeCommons,
     },
     ilustracao: 'saca',
-    esquema: { x: 40, y: 60 },
+    esquema: { x: 68, y: 80 },
   },
   {
-    numero: 4,
+    numero: 7,
     slug: 'theatro-municipal',
     nome: 'Theatro Municipal',
+    curto: 'Theatro Municipal',
     subtitulo: 'de São Paulo',
     local: 'Praça Ramos de Azevedo, Centro',
     resumo:
@@ -132,7 +221,7 @@ export const paradas: Parada[] = [
       'Entre 11 e 18 de fevereiro de 1922 o Theatro recebeu a Semana de Arte Moderna, com noites de música, poesia e palestras em 13, 15 e 17 de fevereiro.',
     fotos: { historica: imagens.theatroInauguracao, atual: imagens.theatroAtual },
     ilustracao: 'theatro',
-    esquema: { x: 20, y: 86 },
+    esquema: { x: 30, y: 96 },
   },
 ]
 
@@ -143,10 +232,13 @@ export const linhaDoTempo: Marco[] = [
   { ano: '1867', titulo: 'Chegam os trilhos', texto: 'A São Paulo Railway inaugura a primeira Estação da Luz.' },
   { ano: '1872', titulo: 'Uma cidade modesta', texto: 'São Paulo é apenas a 9ª cidade do Brasil em população.' },
   { ano: '1890', titulo: 'Nasce a Bolsa', texto: 'Fundação da Bolsa Livre, embrião da atual B3.' },
+  { ano: '1894', titulo: 'O comércio se organiza', texto: 'Fundação da Associação Comercial de São Paulo.' },
   { ano: '1901', titulo: 'A nova Luz', texto: 'Entra em operação o edifício atual da estação.' },
+  { ano: '1909', titulo: 'Do Rosário a Antônio Prado', texto: 'Depois da demolição da igreja dos homens pretos, o largo ganha o nome do prefeito.' },
   { ano: '1911', titulo: 'Um palco europeu', texto: 'Inauguração do Theatro Municipal.' },
   { ano: '1922', titulo: 'Semana de Arte Moderna', texto: 'O Theatro recebe o marco do modernismo brasileiro.' },
   { ano: '1929', titulo: 'A crise', texto: 'A quebra da bolsa de Nova York abala o comércio do café.' },
+  { ano: '1933', titulo: 'O Palácio da Justiça', texto: 'Inauguração parcial do prédio do Tribunal, na Praça da Sé.' },
 ]
 
 export const temasIntro = [
@@ -168,5 +260,14 @@ export const fontes = [
   { titulo: 'BNDES — Museu da Língua Portuguesa e Estação da Luz', url: 'https://www.bndes.gov.br/wps/portal/site/home/onde-atuamos/cultura-e-economia-criativa/patrimonio-cultural-brasileiro/projetos-apoiados/museu-da-lingua-portuguesa/' },
   { titulo: 'Prefeitura de São Paulo — Dicionário de Ruas', url: 'https://dicionarioderuas.prefeitura.sp.gov.br/' },
   { titulo: 'Diário do Transporte — Estação da Luz completa 159 anos', url: 'https://diariodotransporte.com.br/2026/02/16/estacao-da-luz-da-cptm-completa-159-anos-no-transporte-de-passageiros-sobre-trilhos/' },
+  { titulo: 'TJSP — Memória: Palácio da Justiça', url: 'https://www.tjsp.jus.br/Memoria/PalacioJustica/PalacioJustica' },
+  { titulo: 'Câmara Municipal de São Paulo — Associação Comercial é homenageada com a Salva de Prata', url: 'https://www.saopaulo.sp.leg.br/blog/associacao-comercial-de-sao-paulo-e-homenageada-com-a-salva-de-prata/' },
+  { titulo: 'Arquivo.arq — Edifício Casa Palmares', url: 'https://arquivo.arq.br/projetos/edificio-casa-palmares' },
+  { titulo: 'Descubra Sampa — Edifício Casa Palmares', url: 'https://www.descubrasampa.com.br/2020/11/edificio-casa-palmares.html' },
+  { titulo: 'Docomomo Brasil — Edifício Vista Alegre', url: 'https://docomomobrasil.com/wp-content/uploads/2021/12/vista-alegre.pdf' },
+  { titulo: 'Museu da Cidade de São Paulo — Vamos conversar: Largo do Rosário', url: 'https://www.museudacidade.prefeitura.sp.gov.br/wp-content/uploads/2024/03/1.-vamosconversar-largo-do-rosario.pdf' },
+  { titulo: 'Câmara Municipal de São Paulo — Revista Apartes: perfil de Antonio Prado', url: 'https://www.saopaulo.sp.leg.br/apartes-anteriores/revista-apartes/numero-24-mar-jun2017/no-24-perf-antonio-prado' },
+  { titulo: 'Wikipedia — Antônio Prado Square', url: 'https://en.wikipedia.org/wiki/Ant%C3%B4nio_Prado_Square' },
+  { titulo: 'B3 — Aniversário de São Paulo: prédios da B3 no Centro', url: 'https://www.b3.com.br/pt_br/noticias/aniversario-de-sao-paulo-8AA8D0CC850D9B790185DEB7C5A25217.htm' },
   { titulo: 'Capital Aberto — Breve histórico das bolsas no Brasil', url: 'https://www.capitalaberto.com.br/colunistas/2019/06/breve-historico-das-bolsas-no-brasil' },
 ]

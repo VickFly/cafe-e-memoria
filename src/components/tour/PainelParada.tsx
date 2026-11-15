@@ -94,7 +94,7 @@ export function PainelParada({ parada, onFechar, onIr, resposta, onResponder }: 
         >
           <div className="mx-auto mt-2 h-1.5 w-11 rounded-full bg-cafe/25 sm:hidden" aria-hidden="true" />
           <div className="gutter flex items-center justify-between gap-3 py-2.5">
-          <span className="eyebrow">Parada {String(parada.numero).padStart(2, '0')} de 04</span>
+          <span className="eyebrow">Parada {String(parada.numero).padStart(2, '0')} de {String(paradas.length).padStart(2, '0')}</span>
           <button type="button" data-foco-inicial onClick={onFechar} className="grid h-11 w-11 place-items-center rounded-full border border-cafe/20 text-cafe hover:bg-papel" aria-label="Fechar">
             <X className="h-5 w-5" />
           </button>
@@ -193,7 +193,7 @@ export function PainelParada({ parada, onFechar, onIr, resposta, onResponder }: 
           </div>
 
           {extra && (
-            <Desafio quiz={extra.quiz} numero={parada.numero} nome={parada.nome} ano={extra.carimbo} tinta={extra.tinta} resposta={resposta} onResponder={onResponder} />
+            <Desafio quiz={extra.quiz} numero={parada.numero} nome={parada.curto ?? parada.nome} ano={extra.carimbo} tinta={extra.tinta} resposta={resposta} onResponder={onResponder} />
           )}
 
           {parada.fotos.extra && (

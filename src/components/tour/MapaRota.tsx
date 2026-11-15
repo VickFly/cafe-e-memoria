@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { paradas } from '../../data/historia'
 
 const W = 300
-const H = 360
+const H = 470
 
 /**
  * Esquema ilustrativo da ordem do percurso. Não é um mapa em escala:
@@ -113,7 +113,7 @@ export function MapaRota({ exploradas, ativa, onSelecionar }: { exploradas: Set<
                 {p.numero}
               </text>
               <text x={ladoDir ? p.px + 26 : p.px - 26} y={p.py + 4} textAnchor={ladoDir ? 'start' : 'end'} fontSize="12.5" fontWeight="600" fill="#321D16" fontFamily="Inter, sans-serif">
-                {p.nome}
+                {p.curto ?? p.nome}
               </text>
             </g>
           )
@@ -128,7 +128,7 @@ export function MapaRota({ exploradas, ativa, onSelecionar }: { exploradas: Set<
           <path d="M4 38h14l-3 4H7z" fill="#A66A3F" stroke="#321D16" strokeWidth="1" />
         </g>
       </svg>
-      <p id="mapa-descricao" className="sr-only">Esquema da ordem do percurso, ilustrativo e sem escala: 1 Estação da Luz, 2 Rua XV de Novembro, 3 Largo do Café, 4 Theatro Municipal.</p>
+      <p id="mapa-descricao" className="sr-only">Esquema da ordem do percurso, ilustrativo e sem escala: {paradas.map((p) => `${p.numero} ${p.nome}`).join(', ')}.</p>
       <p className="mt-2 px-1 text-xs text-cafe/80">Toque em uma estação para abrir os detalhes.</p>
     </figure>
   )
