@@ -1,4 +1,4 @@
-import { dataDoTour, nomesParadas, urlFoto, type FotoTour } from '../../data/memorias'
+import { dataDoTour, urlFoto, type FotoTour } from '../../data/memorias'
 
 /**
  * Desenha um cartão-postal antigo com a foto do tour: moldura creme, carimbo postal,
@@ -80,10 +80,10 @@ export async function desenharPostal(foto: FotoTour, sepia: boolean): Promise<HT
     g.stroke()
   }
 
-  // rodapé com local e data
+  // rodapé com a data
   g.fillStyle = '#8A5532'
   g.font = '600 26px Inter, system-ui, sans-serif'
-  const rodape = `${nomesParadas[foto.parada].toUpperCase()} · ${dataDoTour.toUpperCase()}`
+  const rodape = dataDoTour.toUpperCase()
   ajustarTexto(g, rodape, t.x, retrato ? H - m - 10 : H - m - 6, t.w, 3)
   return c
 }

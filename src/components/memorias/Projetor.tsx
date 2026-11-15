@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react'
 import { ChevronLeft, ChevronRight, Download, Loader2, Mail, Share2, X } from 'lucide-react'
-import { nomesParadas, urlFoto, type FotoTour } from '../../data/memorias'
+import { urlFoto, type FotoTour } from '../../data/memorias'
 import { desenharPostal } from './postal'
 
 type Props = {
@@ -81,9 +81,8 @@ export function Projetor({ fotos, indice, sepia, onSepia, onIr, onFechar }: Prop
       <div className="gutter flex items-center justify-between gap-3 py-2.5">
         <div className="min-w-0">
           <p className="tabular text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-ouro">
-            Fotograma {String(foto.n).padStart(2, '0')} · {indice + 1} de {fotos.length}
+            {indice + 1} de {fotos.length}
           </p>
-          <p className="truncate font-display text-lg italic text-creme/90">{nomesParadas[foto.parada]}</p>
         </div>
         <button type="button" data-foco onClick={onFechar} className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-creme/25 hover:bg-creme/10" aria-label="Fechar o projetor">
           <X className="h-5 w-5" />
@@ -101,7 +100,7 @@ export function Projetor({ fotos, indice, sepia, onSepia, onIr, onFechar }: Prop
         <img
           key={foto.arquivo}
           src={urlFoto(foto, 'g')}
-          alt={`Foto do tour: ${nomesParadas[foto.parada]}`}
+          alt={`Foto ${indice + 1} de ${fotos.length} do tour`}
           draggable={false}
           onLoad={() => setCarregada(true)}
           className={`max-h-full max-w-full object-contain transition-[opacity,filter] duration-500 ${carregada ? 'opacity-100' : 'opacity-0'} ${sepia ? 'filtro-1911' : ''}`}
