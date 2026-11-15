@@ -26,6 +26,7 @@ Deploy: Vercel, publicado automaticamente a cada `git push` na `main`. Variávei
 | Imagens e créditos | `src/data/images.ts` |
 | Perguntas, critérios, escalas e tipos do formulário | `src/data/avaliacao.ts` |
 | Receita final | `src/data/receita.ts` |
+| Fotos do tour (parada de cada foto, destaques) | `src/data/memorias.ts` + arquivos em `public/memorias/p` (miniatura 560px) e `public/memorias/g` (1600px) |
 | Desafio de cada parada (pergunta, respostas, explicação) e carimbos | `src/data/jornada.ts` (perguntas só com fatos que já estão em `historia.ts`) |
 | Salvar/listar avaliações (Supabase ou localStorage) | `src/lib/storage.ts` |
 | Médias, NPS, CSV do painel | `src/lib/relatorio.ts` |
@@ -34,6 +35,7 @@ Deploy: Vercel, publicado automaticamente a cada `git push` na `main`. Variávei
 Componentes em `src/components/`:
 - `tour/` — `Inicio` (tela inicial), `Introducao` (carrosséis deslizáveis: seis marcas do café e linha do tempo desenhada como ferrovia), `Trilha` (trilho + locomotiva guiada pela rolagem, cartões, barra de progresso), `PainelParada` (modal com fotos antigamente/hoje, leitura com capitular e tempo estimado, arrastar para fechar no celular, desafio da parada), `Desafio` (pergunta que rende o carimbo), `MapaRota` (esquema SVG com trenzinho).
 - `form/` — `Formulario` (5 etapas + validação + envio), `Controles` (grãos de café 1–5, Sim/Parcialmente/Não, NPS 0–10, textarea com contador).
+- `memorias/` — `Memorias` (Capítulo III: rolo de filme com destaques, filtros por parada, mesa de luz com revelação ao rolar, chave "Ver como em 1911"), `Projetor` (tela cheia, deslizar/setas, baixar), `postal.ts` (gera cartão-postal em canvas para baixar/compartilhar).
 - `recipe/Agradecimento` — tela final + receita desbloqueada + copiar.
 - `admin/Painel` — rota `#painel`: login, resumo, comentários, exportar CSV.
 - `brand/` — `Ilustracoes` (SVGs lineares), `Locomotiva` (locomotiva lateral, vista de cima e `TremChegando`), `Foto` (imagem com moldura e fallback), `Rodape`.
@@ -47,6 +49,7 @@ Componentes em `src/components/`:
 - A parada 2 trata só da Rua XV de Novembro e do café de Maria Punga; a Rua Anchieta foi retirada do roteiro. Largo do Café, Palácio do Café e Bolsa de Valores **não são o mesmo lugar**.
 - Pontos ainda não confirmados em fonte: Bolsa no Palácio do Café em **1934**. Não reforçar sem fonte.
 - O mapa é **esquemático, sem escala**: posições em `esquema` (0–100) só indicam a sequência, não são coordenadas.
+- Fotos do tour: sem EXIF/GPS; para retirar uma foto a pedido de alguém, apagar a entrada em `memorias.ts` e os dois arquivos `.webp`. Só classificar uma foto numa parada se o lugar for inequívoco; na dúvida, `pelo-caminho`.
 - Imagens: só Wikimedia Commons ou acervos com licença adequada, via `Special:FilePath` (helper `img()` em `images.ts`), sempre com legenda e crédito. Fotos históricas recebem filtro sépia automaticamente (`tipo: 'historica'`).
 
 ## Regras técnicas

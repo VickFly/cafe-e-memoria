@@ -1,11 +1,11 @@
-import { ArrowDown, CalendarDays, Clock, GraduationCap, MapPin } from 'lucide-react'
+import { ArrowDown, CalendarDays, Camera, Clock, GraduationCap, MapPin } from 'lucide-react'
 import { guiasTexto, tourConfig } from '../../config/tour'
 import { imagens } from '../../data/images'
 import { Foto } from '../brand/Foto'
 import { Grao, Ramo, Selo } from '../brand/Ilustracoes'
 import { TremChegando } from '../brand/Locomotiva'
 
-export function Inicio({ onComecar }: { onComecar: () => void }) {
+export function Inicio({ onComecar, onFotos }: { onComecar: () => void; onFotos: () => void }) {
   const info = [
     { icone: CalendarDays, rotulo: 'Data', valor: tourConfig.data },
     { icone: Clock, rotulo: 'Horário', valor: tourConfig.horario },
@@ -42,6 +42,10 @@ export function Inicio({ onComecar }: { onComecar: () => void }) {
             </button>
             <span className="text-sm text-cafe/80">4 paradas · cerca de 2 horas</span>
           </div>
+          <button type="button" onClick={onFotos} className="mt-5 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-cafe/30 bg-creme/70 py-1.5 pl-1.5 pr-4 text-sm font-semibold text-cafe hover:border-cafe hover:bg-creme">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-espresso text-creme"><Camera className="h-4 w-4" aria-hidden="true" /></span>
+            Novo: veja as fotos do tour de 14/11
+          </button>
         </div>
 
         <div className="relative mx-auto w-full min-w-0 max-w-xl animate-rise [animation-delay:120ms] lg:max-w-none">

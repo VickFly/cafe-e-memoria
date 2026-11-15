@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PenLine } from 'lucide-react'
+import { Camera, PenLine } from 'lucide-react'
 import { Inicio } from './components/tour/Inicio'
 import { Introducao } from './components/tour/Introducao'
 import { Trilha } from './components/tour/Trilha'
+import { Memorias } from './components/memorias/Memorias'
 import { Formulario } from './components/form/Formulario'
 import { Agradecimento } from './components/recipe/Agradecimento'
 import { Painel } from './components/admin/Painel'
@@ -84,7 +85,10 @@ export default function App() {
       <main id="conteudo">
         {progresso.tela === 'tour' && (
           <>
-            <Inicio onComecar={() => document.getElementById('historia')?.scrollIntoView({ behavior: 'smooth' })} />
+            <Inicio
+              onComecar={() => document.getElementById('historia')?.scrollIntoView({ behavior: 'smooth' })}
+              onFotos={() => document.getElementById('memorias')?.scrollIntoView({ behavior: 'smooth' })}
+            />
             <Introducao />
             <Trilha
               exploradas={new Set(progresso.exploradas)}
@@ -93,6 +97,7 @@ export default function App() {
               respostas={progresso.respostas}
               onResponder={(slug, i) => setProgresso((p) => (p.respostas[slug] !== undefined ? p : { ...p, respostas: { ...p.respostas, [slug]: i } }))}
             />
+            <Memorias />
           </>
         )}
         {progresso.tela === 'form' && (
@@ -122,14 +127,19 @@ function BarraTopo({ tela, onInicio, onAvaliar, jaEnviou }: { tela: Tela; onInic
   return (
     <div className="gutter border-b border-cafe/10 bg-papel/80 py-2.5">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
-        <button type="button" onClick={onInicio} className="flex min-h-[44px] items-center gap-2 font-display text-lg font-bold text-espresso" aria-label="Café & Memória, voltar ao início">
+        <button type="button" onClick={onInicio} className="flex min-h-[44px] min-w-0 items-center gap-2 whitespace-nowrap font-display text-base font-bold text-espresso min-[400px]:text-lg" aria-label="Café & Memória, voltar ao início">
           <Grao className="h-5 w-4 text-caramelo-texto" />
           Café <span className="italic text-caramelo-texto">&amp;</span> Memória
         </button>
         {tela === 'tour' && (
+          <div className="flex shrink-0 items-center gap-1">
+          <a href="#memorias" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-full px-2.5 text-sm font-semibold text-cafe hover:bg-creme">
+            <Camera className="h-4 w-4" aria-hidden="true" /> <span className="sr-only min-[400px]:not-sr-only">Fotos</span>
+          </a>
           <button type="button" onClick={onAvaliar} className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-cafe/30 px-4 text-sm font-semibold text-cafe hover:border-cafe hover:bg-creme">
             <PenLine className="h-4 w-4" aria-hidden="true" /> {jaEnviou ? 'Sua receita' : 'Avaliar'}
           </button>
+          </div>
         )}
       </div>
     </div>
