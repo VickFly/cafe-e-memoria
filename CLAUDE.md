@@ -1,6 +1,6 @@
 # CLAUDE.md — Café & Memória
 
-App web (SPA) que acompanha um tour guiado presencial pelo Centro Histórico de São Paulo, sobre a história do café na cidade. Trabalho acadêmico da USP; tour em 14/11/2026 (sábado), 13h–15h, saindo da Estação da Luz. Os participantes abrem o link no celular (via QR Code), percorrem a trilha de 7 paradas, avaliam o tour e desbloqueiam uma receita.
+App web (SPA) que acompanha um tour guiado presencial pelo Centro Histórico de São Paulo, sobre a história do café na cidade. Trabalho acadêmico da USP; tour em 7/11/2026 (sábado), 13h–15h, saindo da Estação da Luz. Os participantes abrem o link no celular (via QR Code), percorrem a trilha de 7 paradas, avaliam o tour e desbloqueiam uma receita.
 
 **Idioma:** todo texto de interface, comentários e mensagens de commit em **português do Brasil**.
 

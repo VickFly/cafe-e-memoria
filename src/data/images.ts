@@ -56,13 +56,13 @@ export const imagens = {
 /** Categoria do Commons com fotos do Largo do Café. */
 export const largoDoCafeCommons = 'https://commons.wikimedia.org/wiki/Category:Largo_do_Caf%C3%A9'
 
-/** Fotos feitas pela equipe no próprio tour (14/11/2026), usadas como "Hoje" nas paradas sem foto atual no Commons. */
+/** Fotos feitas pela equipe no próprio tour (7/11/2026), usadas como "Hoje" nas paradas sem foto atual no Commons. */
 const doTour = (arquivo: string, legenda: string): Imagem => ({
   src: `/memorias/g/${arquivo}`,
   reserva: `/memorias/p/${arquivo}`,
   pagina: '#memorias',
   legenda,
-  credito: 'Foto: equipe do tour Café & Memória, 14/11/2026',
+  credito: 'Foto: equipe do tour Café & Memória, 7/11/2026',
   tipo: 'atual',
 })
 

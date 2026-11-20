@@ -234,7 +234,7 @@ function Postal({ foto, sepiaInicial, onFechar }: { foto: FotoTour; sepiaInicial
           {erro ? (
             <p className="text-sm text-cafe">{erro}</p>
           ) : url ? (
-            <img src={url} alt="Cartão-postal com a foto do tour, selo de café e carimbo de 14 de novembro de 2026" className="max-h-[60vh] w-auto max-w-full rotate-[-1deg] rounded-sm shadow-[0_20px_40px_-20px_rgba(0,0,0,.6)]" />
+            <img src={url} alt="Cartão-postal com a foto do tour, selo de café e carimbo de 7 de novembro de 2026" className="max-h-[60vh] w-auto max-w-full rotate-[-1deg] rounded-sm shadow-[0_20px_40px_-20px_rgba(0,0,0,.6)]" />
           ) : (
             <p className="flex items-center gap-2 text-sm text-cafe">
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Revelando o cartão-postal…

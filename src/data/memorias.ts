@@ -1,5 +1,5 @@
 /**
- * Fotos do tour de sábado, 14 de novembro de 2026.
+ * Fotos do tour de sábado, 7 de novembro de 2026.
  *  - public/memorias/p/  miniaturas (560 px) para a galeria
  *  - public/memorias/g/  versão grande (1600 px) para o projetor, o download e o cartão-postal
  * As imagens foram giradas corretamente e salvas SEM metadados (sem GPS, modelo do celular etc.).
@@ -21,7 +21,7 @@ export type ParadaFoto =
 
 export type FotoTour = { n: number; arquivo: string; w: number; h: number; parada: ParadaFoto; destaque?: boolean }
 
-export const dataDoTour = 'Sábado, 14 de novembro de 2026'
+export const dataDoTour = 'Sábado, 7 de novembro de 2026'
 
 export const nomesParadas: Record<ParadaFoto, string> = {
   'estacao-da-luz': 'Estação da Luz',

@@ -44,7 +44,7 @@ export function Inicio({ onComecar, onFotos }: { onComecar: () => void; onFotos:
           </div>
           <button type="button" onClick={onFotos} className="mt-5 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-cafe/30 bg-creme/70 py-1.5 pl-1.5 pr-4 text-sm font-semibold text-cafe hover:border-cafe hover:bg-creme">
             <span className="grid h-8 w-8 place-items-center rounded-full bg-espresso text-creme"><Camera className="h-4 w-4" aria-hidden="true" /></span>
-            Novo: veja as fotos do tour de 14/11
+            Novo: veja as fotos do tour de 7/11
           </button>
         </div>
 
